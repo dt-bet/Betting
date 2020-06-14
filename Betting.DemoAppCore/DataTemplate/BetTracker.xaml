@@ -1,0 +1,62 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          
+              
+                         xmlns:pt="http://propertytools.org/wpf"
+                    
+                         xmlns:oxy="clr-namespace:OxyPlot.Wpf;assembly=OxyPlot.Wpf"
+                    >
+
+
+
+
+
+
+    <!--<DataTemplate x:Key="betTracker" DataType="{x:Type serv:BetTracker}">
+        <GroupBox Header="Back Away" Height="300" Width="1000" Foreground="DarkGreen">
+
+            <Grid DataContext="{Binding }">
+                <TabControl>
+                    <TabItem Header="Chart">
+                        <Grid>
+                            <TextBox Text="{Binding Total}" FontSize="30"/>
+                            <Grid>
+                                <oxy:Plot TitleToolTip="TwoColorAreaSeries">
+                                    <oxy:Plot.Axes>
+                                        <oxy:DateTimeAxis Position="Bottom"/>
+                                        <oxy:LinearAxis Position="Left"/>
+                                    </oxy:Plot.Axes>
+                                    <oxy:TwoColorAreaSeries ItemsSource="{Binding Series }" Title="Values" DataFieldX="Placed" DataFieldY="Total" Fill="LightBlue" StrokeThickness="2" LineStyle="Solid" Limit="{Binding InitialValue}" MarkerSize="2" MarkerFill="Blue" MarkerFill2="Red" MarkerType="Circle" Fill2="Tomato" Color="Blue" Color2="Red"/>
+                                    <oxy:LineSeries ItemsSource="{Binding Series }" Title="Values" DataFieldX="Placed" DataFieldY="Amount" StrokeThickness="2" LineStyle="Solid"  MarkerSize="2" MarkerFill="Green"  MarkerType="Circle"  Color="Pink" />
+                                    <oxy:LinearBarSeries ItemsSource="{Binding Series}" Title="Values" DataFieldX="Placed" DataFieldY="Value" StrokeThickness="2"  Color="Green"/>
+                                </oxy:Plot>
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Table">
+                        <pt:DataGrid  ItemsSource="{Binding Series }">
+                        </pt:DataGrid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </GroupBox>
+    </DataTemplate>-->
+    
+    <!--<DataTemplate x:Key="profitTracker"  DataType="{x:Type serv:ProfitTracker}">
+        <Viewbox Height="200">
+
+
+            <StackPanel Orientation="Horizontal">
+
+
+                <pt:PropertyGrid SelectedObject="{Binding }"></pt:PropertyGrid>
+                <ContentPresenter Content="{Binding Bets}" Width="1000" ContentTemplate="{StaticResource betTracker}"   />
+
+            </StackPanel>
+        </Viewbox>
+    </DataTemplate>-->
+
+
+
+
+</ResourceDictionary>

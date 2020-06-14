@@ -1,0 +1,67 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:model="clr-namespace:Betting.Model;assembly=Betting.Model"
+        
+                         xmlns:pt="http://propertytools.org/wpf"
+
+                    >
+
+    <!--public partial class Bet : ITrade
+    {
+        [PrimaryKey, AutoIncrement]
+        public Int64 Id { get; set; }
+        [NotNull]
+        public long ContractId { get; set; }
+        [NotNull]
+        public string ContractType { get; set; }
+        [NotNull]
+        public string ContractName { get; set; }
+        [Display(Name = "Placed Date")]
+        [DataType(DataType.Date)]
+        [NotNull]
+        public string Placed { get; set; }
+        public bool? Result { get; set; }
+        [NotNull]
+        public string UtilityEnum.Execution { get; set; }
+        [NotNull]
+        public string Side { get; set; }
+        public int Commission { get; set; } = 0
+        [Range(1, 100000)]
+        public int Price { get; set;  
+        public int Amount { get; set; }
+        public int Profit { get; set; 
+        public int Total { get; set; }
+        public long TimeDiff { get; set; }
+
+    }-->
+
+
+
+
+
+    <DataTemplate DataType="{x:Type model:Bet}">
+
+        <StackPanel>
+            <TextBox Text="{Binding  Id}" />
+            <TextBox Text="{Binding  ContractId}" />
+            <TextBox Text="{Binding  ContractType}" />
+            <TextBox Text="{Binding  ContractName}" />
+            <TextBox Text="{Binding  Placed}" />
+            <TextBox Text="{Binding  Result}" />
+            <TextBox Text="{Binding  UtilityEnum.Execution}" />
+            <TextBox Text="{Binding  Side}" />
+            <TextBox Text="{Binding  Commission}" />
+            <TextBox Text="{Binding  Price}" />
+            <TextBox Text="{Binding  Amount}" />
+            <TextBox Text="{Binding  Profit}" />
+            <TextBox Text="{Binding  Total}" />
+            <TextBox Text="{Binding  TimeDiff}" />
+        </StackPanel>
+    </DataTemplate>
+
+
+   
+
+
+
+</ResourceDictionary>

@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>2.0.0</Version>
+    <Company />
+    <Authors>Declan Taylor</Authors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="UtilityEnum" Version="1.1.5" />
+  </ItemGroup>
+    <PropertyGroup>
+        <FileName>"$(ProjectDir)\bin\debug\$(ProjectName)*nupkg"</FileName>
+        <DestinationFolder>C:\Users\rytal\Documents\Visual Studio 2019\NugetPackages</DestinationFolder>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <ShouldCreateLogs>True</ShouldCreateLogs>
+      <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
+      <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
+      <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+      <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+      <UpdatePackageVersion>True</UpdatePackageVersion>
+      <PackageVersionSettings>AssemblyVersion.IncrementWithAutoReset.None</PackageVersionSettings>
+      <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+      <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
+    </PropertyGroup> 
+    <ItemGroup>
+       <MySourceFiles Include="$(ProjectDir)\bin\debug\$(ProjectName)*nupkg" />
+    </ItemGroup>
+    <Target Name="CopyFiles" AfterTargets="Build">
+        <Message Text="@(MySourceFiles)" Importance="high" /> 
+        <Copy SourceFiles="@(MySourceFiles)" DestinationFolder="$(DestinationFolder)" />
+    </Target>
+  <Target Name="PostPack" AfterTargets="Pack">
+    <Exec Command="&#xD;&#xA;      set source=&quot;$(ProjectDir)$(OutDir)..\ &quot;&#xD;&#xA;&#xD;&#xA;      set target=&quot;C:\Users\rytal\Documents\Visual Studio 2019\NugetPackages &quot;  &#xD;&#xA;&#xD;&#xA;      RoboCopy %25source%25 %25target%25 *.nupkg  /XO /XN /NFL /NDL /NJH   &#xD;&#xA;&#xD;&#xA;      IF %ERRORLEVEL% GEQ 8 exit 1&#xD;&#xA;&#xD;&#xA;      exit 0" />
+  </Target>
+</Project>

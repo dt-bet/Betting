@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="sqlite-net-pcl" Version="1.6.292" />
+    <PackageReference Include="System.Reactive" Version="4.1.5" />
+    <PackageReference Include="UtilityReactive" Version="1.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Betting.Entity.Sqlite\Betting.Entity.Sqlite.csproj" />
+    <ProjectReference Include="..\Betting.Model\Betting.Model.csproj" />
+    <ProjectReference Include="..\BettingSystem.Service\Betting.BLL.csproj" />
+    <ProjectReference Include="..\Betting\Betting.csproj" />
+  </ItemGroup>
+
+</Project>
