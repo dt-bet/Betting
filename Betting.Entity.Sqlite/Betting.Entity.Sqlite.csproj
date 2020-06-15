@@ -6,7 +6,6 @@
     <FileVersion>2.2.2.0</FileVersion>
     <Version>2.2.2</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Declan Taylor</Authors>
     <Product>Betting.Entity.SQLite</Product>
     <PackageId>Betting.Entity.SQLite</PackageId>
     <AssemblyName>Betting.Entity.Sqlite</AssemblyName>
