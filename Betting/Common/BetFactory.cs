@@ -3,20 +3,21 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UtilityStruct;
+using Betting.Enum;
 
 namespace Betting
 {
     public static class BetFactory
     {
         //static double[] limits = new double[] { -0.5, 0.5 };
-        static string[] contracts = new string[] { "Home", "Draw", "Away" };
+        static readonly string[] contracts = new string[] { "Home", "Draw", "Away" };
 
 
         public static IEnumerable<Bet> MakeBackBets(DateTime date, NodaMoney.Money[] arbs, NodaMoney.Money[] runningProfits, byte week, Probability[] prices, double[] percentAtRisk)
         {
             for (int i = 0; i < 3; i++)
             {
-                yield return Make(UtilityEnum.Betting.Side.Back, date, arbs[i], runningProfits[i], prices[i], percentAtRisk[i], contracts[i]);
+                yield return Make(TradeSide.Back, date, arbs[i], runningProfits[i], prices[i], percentAtRisk[i], contracts[i]);
             }
         }
 
@@ -25,16 +26,16 @@ namespace Betting
         {
             for (int i = 0; i < 3; i++)
             {
-                yield return Make(UtilityEnum.Betting.Side.Lay, date, unitAmounts[i], runningProfits[i], prices[i], percentAtRisk[i], contracts[i]);
+                yield return Make(TradeSide.Lay, date, unitAmounts[i], runningProfits[i], prices[i], percentAtRisk[i], contracts[i]);
             }
         }
 
 
 
-        public static Bet Make(UtilityEnum.Betting.Side side, DateTime date, NodaMoney.Money unitAmount, NodaMoney.Money runningProfit, Probability price, double percentAtRisk, string contract)
+        public static Bet Make(TradeSide side, DateTime date, NodaMoney.Money unitAmount, NodaMoney.Money runningProfit, Probability price, double percentAtRisk, string contract)
         {
-            //decimal unitAmount = ProfitMaths.Arbitrage(UtilityEnum.Betting.Side.Back, price, prob)*100;
-            if (UtilityEnum.Betting.Side.Lay == side)
+            //decimal unitAmount = ProfitMaths.Arbitrage(TradeSide.Back, price, prob)*100;
+            if (TradeSide.Lay == side)
                 unitAmount = -unitAmount;
 
             if (unitAmount < 0)

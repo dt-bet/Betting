@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using UtilityEnum.Betting;
+using Betting.Enum;
 
 namespace Betting.Model
 {
@@ -18,9 +18,14 @@ namespace Betting.Model
     public static class TradeEx
     {
 
-        public static InvestmentType ToTransaction(this Money trade)
+        public static TradeSide ToTradeSide(this Money trade)
         {
-            return trade.Amount > 0 ? InvestmentType.Buy:InvestmentType.Sell;
+            return trade.Amount > 0 ? TradeSide.Back: TradeSide.Lay;
+        }
+              
+        public static TransactionSide ToTransactionSide(this Money trade)
+        {
+            return trade.Amount > 0 ? TransactionSide.Buy: TransactionSide.Sell;
         }
 
     }

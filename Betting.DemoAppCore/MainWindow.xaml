@@ -3,63 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Betting.DemoWpfApp"
         xmlns:view1="clr-namespace:Betting.View;assembly=Betting.View"
-        xmlns:oxy="http://oxyplot.org/wpf"
-        xmlns:vm="clr-namespace:Betting.ViewModel;assembly=Betting.ViewModel"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:actions="clr-namespace:Mvvm.Actions"
-        xmlns:p="http://propertytools.org/wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <TabControl>
         <TabItem Header="1">
             <!--<view1:ProfitTracker3 Prices="{Binding Prices,Mode=OneWay}" ></view1:ProfitTracker3>-->
-            <TabItem.DataContext>
-                <vm:BalanceViewModel/>
-            </TabItem.DataContext>
-            <Grid>
-                <DockPanel>
-                    <ToolBar DockPanel.Dock="Top">
-                        <Label >Balance</Label>
-                        <p:SpinControl Value="{Binding Balance.Value}" Margin="4">
-                            <TextBox Text="{Binding Balance.Value, StringFormat={}{0:0.00}}" BorderThickness="0" HorizontalContentAlignment="Right"/>
-                        </p:SpinControl>
-                        <Label >Fraction</Label>
-                        <p:SpinControl Value="{Binding Fraction.Value}" Margin="4">
-                            <TextBox Text="{Binding Fraction.Value, StringFormat={}{0:0.00}}" BorderThickness="0" HorizontalContentAlignment="Right"/>
-                        </p:SpinControl>
-                        <Label >Win</Label>
-                        <p:SpinControl Value="{Binding Win.Value}" Margin="4">
-                            <TextBox Text="{Binding Win.Value, StringFormat={}{0:0.00}}" BorderThickness="0" HorizontalContentAlignment="Right"/>
-                        </p:SpinControl>
-                        <Label >Sigma</Label>
-                        <p:SpinControl Value="{Binding Sigma.Value}" Margin="4">
-                            <TextBox Text="{Binding Sigma.Value, StringFormat={}{0:0.00}}" BorderThickness="0" HorizontalContentAlignment="Right"/>
-                        </p:SpinControl>
-                    </ToolBar>
-                    <oxy:Plot >
-                        <oxy:Plot.Axes>
-                            <oxy:LinearAxis Position="Bottom"/>
-                            <oxy:LinearAxis Position="Left"/>
-                        </oxy:Plot.Axes>
-                        <!--<oxy:TwoColorAreaSeries ItemsSource="{Binding Series }" Title="Values" DataFieldX="Placed" DataFieldY="Total" Fill="LightBlue" StrokeThickness="2" LineStyle="Solid" Limit="{Binding InitialValue}" MarkerSize="2" MarkerFill="Blue" MarkerFill2="Red" MarkerType="Circle" Fill2="Tomato" Color="Blue" Color2="Red"/>-->
-                        <oxy:LineSeries ItemsSource="{Binding DataPoints.Value }" Title="Values"  StrokeThickness="2" LineStyle="Solid"  MarkerSize="2" MarkerFill="Green"  MarkerType="Circle"  Color="Pink" />
-                        <!--<oxy:LinearBarSeries ItemsSource="{Binding Series}" Title="Values" DataFieldX="Placed" DataFieldY="Value" StrokeThickness="2"  Color="Green"/>-->
-                    </oxy:Plot>
-                </DockPanel>
-               
-                </Grid>
+
+            <view1:ProfitChartView></view1:ProfitChartView>
         </TabItem>
-        <TabItem Header="2">
-        <UniformGrid Columns="1">
-                <UniformGrid.DataContext>
-                    <local:MainViewModel></local:MainViewModel>
-                </UniformGrid.DataContext>
-            <view1:ProfitTrackWrapper  Data="{Binding Points2}" Date="date" Price="price" Result="result" Prediction="prediction"/>
-            <view1:ProfitTrackWrapper  Data="{Binding Points}" Date="date" Price="price" Result="result" Prediction="prediction"/>
-            </UniformGrid>
-        </TabItem>
+
     </TabControl>
 </Window>

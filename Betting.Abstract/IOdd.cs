@@ -4,17 +4,17 @@ using System.Text;
 
 namespace Betting.Abstract
 {
-    public interface IOdd
+    public interface IOdd : UtilityInterface.NonGeneric.Database.IGuid
     {
         Guid Guid { get; }
 
-        string MarketId { get; }
+        Guid MarketId { get; }
 
         DateTime EventDate { get; }
 
-        string Competition { get; }
+        //string Competition { get; }
 
-        string CompetitionId { get; }
+        Guid CompetitionId { get; }
 
         DateTime OddsDate { get; }
 

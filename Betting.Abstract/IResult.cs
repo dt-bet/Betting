@@ -4,10 +4,12 @@ using System.Text;
 
 namespace Betting.Abstract
 {
-    public interface IResult
+    public interface IResult : UtilityInterface.NonGeneric.Database.IGuid
     {
-        string MarketId { get; }
+        Guid Guid { get; set; }
 
-        long WinnerId { get; }
+        Guid MarketId { get; }
+
+        Guid WinnerId { get; }
     }
 }

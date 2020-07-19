@@ -2,18 +2,18 @@
 using SQLite;
 using System;
 using System.Collections.Generic;
-using UtilityEnum.Betting;
+using Betting.Enum;
 
 //using UtilityDAL.Model;
 
 namespace Betting.Entity.Sqlite
 {
 
-    public class Market : IEquatable<Market> 
+    public class Market : IEquatable<Market> , UtilityInterface.NonGeneric.Database.IId
     {
         public Market(long id, MarketType key, List<Contract>? contracts =null)
         {
-            Key = key;
+            Type = key;
             Id = id;
             Contracts = contracts;
         }
@@ -22,15 +22,18 @@ namespace Betting.Entity.Sqlite
         {
         }
 
+        [PrimaryKey]
         public long Id { get; set; }
 
+        public Guid Guid { get; set; }
+
         [Indexed]
-        public MarketType Key { get; set; }
+        public MarketType Type { get; set; }
 
 
         //[OneToMany(CascadeOperations = CascadeOperation.All)]
         [Ignore]
-        public List<Contract>? Contracts { get; set; }
+        public IReadOnlyCollection<Contract>? Contracts { get; set; }
 
         #region IEquatable
 
@@ -40,7 +43,7 @@ namespace Betting.Entity.Sqlite
         public override int GetHashCode()
         {
             var hashCode = -228512026;
-            hashCode = hashCode * -1521134295 + Key.GetHashCode();
+            hashCode = hashCode * -1521134295 + Type.GetHashCode();
             hashCode = hashCode * -1521134295;/* + GetHashCode(this as DbChildRow);*/
             return hashCode;
         }

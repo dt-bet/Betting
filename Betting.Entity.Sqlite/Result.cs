@@ -1,15 +1,13 @@
 ﻿using Betting.Abstract;
+using SQLite;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UtilityEnum.Betting;
+using Betting.Enum;
 
 namespace Betting.Entity.Sqlite
 {
-    public class Result : IEquatable<Result>, IResult
+    public class Result : IResult, UtilityInterface.NonGeneric.Database.IId
     {
-        public Result(string marketId, long winnerId, AbsolutePosition playerStatus)
+        public Result(Guid marketId, Guid winnerId, AbsolutePosition playerStatus)
         {
             MarketId = marketId;
             WinnerId = winnerId;
@@ -20,25 +18,16 @@ namespace Betting.Entity.Sqlite
         {
         }
 
-        public string MarketId { get; set; }
+        [PrimaryKey]
+        public long Id { get; set; }
 
-        public long WinnerId { get; set; }
+        public Guid Guid { get; set; }
+
+        public Guid MarketId { get; set; }
+
+        public Guid WinnerId { get; set; }
 
         public AbsolutePosition PlayerStatus { get; set; }
 
-        public bool Equals(Result other)
-        {
-            return other.MarketId == MarketId && other.WinnerId == WinnerId;
-        }
-
-        public override int GetHashCode()
-        {
-            return MarketId.Select(c => (int)c).Aggregate((a, b) => a * b);
-        }
-
-        public override bool Equals(object obj)
-        {
-            return Equals(obj as Result);
-        }
     }
 }

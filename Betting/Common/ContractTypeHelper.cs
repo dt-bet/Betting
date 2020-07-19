@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using UtilityEnum.Betting;
+using Betting.Enum;
 
 namespace Betting.Common
 {
@@ -34,7 +34,7 @@ namespace Betting.Common
             int en;
             try
             {
-                en = (int)Enum.Parse(typeof(ContractType), x.Key, true);
+                en = (int)System.Enum.Parse(typeof(ContractType), x.Key, true);
             }
             catch
             {

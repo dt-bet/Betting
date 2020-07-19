@@ -17,10 +17,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DynamicData" Version="6.5.1.2479" />
-    <PackageReference Include="NodaMoney" Version="1.0.5" />
     <PackageReference Include="OxyPlot.Core" Version="2.0.0" />
-    <PackageReference Include="ReactiveProperty" Version="6.1.4" />
+    <PackageReference Include="ReactiveUI" Version="11.4.17" />
   </ItemGroup>
 
   <ItemGroup>

@@ -4,7 +4,7 @@ using FizzWare.NBuilder.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UtilityEnum.Betting;
+using Betting.Enum;
 using UtilityStruct;
 
 namespace Betting.Factory

@@ -2,16 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UtilityEnum.Betting;
+using Betting.Enum;
+using SQLite;
 
 namespace Betting.Entity.Sqlite
 {
     [SQLite.Table("Result")]
-    public class TwoWayResult : IEquatable<TwoWayResult>, ITwoWayResult, IResult
+    public class TwoWayResult : IEquatable<TwoWayResult>, ITwoWayResult, IResult, UtilityInterface.NonGeneric.Database.IId
     {
-        public TwoWayResult(string marketId,
-            long player1Id, AbsolutePosition player1Status,
-            long player2Id, AbsolutePosition player2Status)
+        public TwoWayResult(Guid marketId,
+            Guid player1Id, AbsolutePosition player1Status,
+            Guid player2Id, AbsolutePosition player2Status)
         {
             Player2Id = player2Id;
             Player2Status = player2Status;
@@ -23,27 +24,35 @@ namespace Betting.Entity.Sqlite
         public TwoWayResult()
         {
         }
-        public string MarketId { get; set; }
 
-        public long Player1Id { get; set; }
+        [PrimaryKey]
+        public long Id { get; set; }
+
+        public Guid Guid { get; set; }
+
+        public Guid MarketId { get; set; }
+
+        public Guid Player1Id { get; set; }
 
         public AbsolutePosition Player1Status { get; set; }
 
-        public long Player2Id { get; set; }
+        public Guid Player2Id { get; set; }
 
         public AbsolutePosition Player2Status { get; set; }
 
-        public virtual long WinnerId
+        public virtual Guid WinnerId
         {
             get
             {
-                long? ss = (Player2Status == AbsolutePosition.Loser && Player1Status == AbsolutePosition.Winner ? (long?)Player2Id : null);
+                Guid? ss = (Player2Status == AbsolutePosition.Loser && Player1Status == AbsolutePosition.Winner ? (Guid?)Player2Id : null);
 
-                long? winner = Player1Status == AbsolutePosition.Winner && Player2Status == AbsolutePosition.Loser ?
+                Guid? winner = Player1Status == AbsolutePosition.Winner && Player2Status == AbsolutePosition.Loser ?
                     Player1Id : ss;
-                return winner ?? 0;
+                return winner ?? default;
             }
         }
+
+
 
         public override bool Equals(object obj)
         {

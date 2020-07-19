@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.10</Version>
+    <Version>1.0.11</Version>
     <AssemblyVersion>1.0.10.0</AssemblyVersion>
   </PropertyGroup>
 
@@ -16,6 +16,12 @@
 
 
   <ItemGroup>
-    <PackageReference Include="UtilityEnum" Version="2.0.0" />
+    <PackageReference Include="UtilityInterface" Version="4.0.1-alpha" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\Betting.Enum\Betting.Enum.csproj" />
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using UtilityEnum.Betting;
+using Betting.Enum;
 using UtilityStruct;
 
 namespace Betting.Model
@@ -19,7 +19,7 @@ namespace Betting.Model
 
         public PriceSource Source { get; set; }
 
-        public PriceType Type { get; set; }
+        public PriceSide Type { get; set; }
 
         public Odd Value { get; set; }
 

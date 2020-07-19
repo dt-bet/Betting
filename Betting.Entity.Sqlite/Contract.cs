@@ -3,26 +3,32 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UtilityEnum.Betting;
+using Betting.Enum;
 
 //using UtilityDAL;
 //using UtilityDAL.Model;
 
 namespace Betting.Entity.Sqlite
 {
-    public class Contract : /*DbChildRow*/IEquatable<Contract>
+    public class Contract : /*DbChildRow*/IEquatable<Contract>, UtilityInterface.NonGeneric.Database.IId
     {
         public Contract()
         {
         }
 
+        [PrimaryKey]
+        public long Id { get; set; }
 
-        public byte Key { get; set; }
-        public long Condition { get; set; }
+        public Guid Guid { get; set; }
+
+
+        public ContractType Type { get; set; }
+
+        //public long Condition { get; set; }
 
         //[OneToMany(CascadeOperations = CascadeOperation.All)]
         [Ignore]
-        public List<Price> Prices { get; set; }
+        public IReadOnlyCollection<Price> Prices { get; set; }
 
         //[OneToMany(CascadeOperations = CascadeOperation.All)]
 
@@ -42,7 +48,7 @@ namespace Betting.Entity.Sqlite
         {
             var hashCode = 868662804;
             hashCode = hashCode * -1521134295; /*+ GetHashCode(this as DbChildRow);*/
-            hashCode = hashCode * -1521134295 + Key.GetHashCode();
+            hashCode = hashCode * -1521134295 + Type.GetHashCode();
             return hashCode;
         }
 

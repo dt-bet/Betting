@@ -5,7 +5,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
-using UtilityEnum.Betting;
+using Betting.Enum;
 
 namespace Betting.View
 {
@@ -29,8 +29,8 @@ namespace Betting.View
                 .ToCollection()
                 .Select(query =>
                 {
-                    var buy = query.Where(trade => trade.Amount.ToTransaction() == InvestmentType.Buy).Sum(trade => (decimal)trade.Amount);
-                    var sell = query.Where(trade => trade.Amount.ToTransaction() == InvestmentType.Sell).Sum(trade => (decimal)trade.Amount);
+                    var buy = query.Where(trade => trade.Amount.ToTransactionSide() == TransactionSide.Buy).Sum(trade => (decimal)trade.Amount);
+                    var sell = query.Where(trade => trade.Amount.ToTransactionSide() == TransactionSide.Sell).Sum(trade => (decimal)trade.Amount);
 
                     var count = query.Count;
                     return new { buy, sell, count };
