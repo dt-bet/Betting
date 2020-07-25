@@ -17,6 +17,7 @@ namespace Betting.Abstract
         Guid SelectionId { get; }
 
         int Wager { get; }
+        Guid StrategyId { get; }
 
         // IProfit Build(long amount, Guid betId, DateTime eventDate, string marketId,int price, long selectionId,int wager);
     }

@@ -11,7 +11,7 @@ namespace Betting.Entity.Sqlite
         public const int Factor = 100;
         public Profit() { }
 
-        public Profit(Guid marketId, DateTime eventDate, int amount, Guid selectionId, int wager, uint price, Guid betId)
+        public Profit(Guid marketId, DateTime eventDate, int amount, Guid selectionId, int wager, uint price, Guid betId, Guid strategyId)
         {
             MarketId = marketId;
             EventDate = eventDate;
@@ -20,6 +20,7 @@ namespace Betting.Entity.Sqlite
             Wager = wager;
             Price = price;
             BetId = betId;
+            StrategyId = strategyId;
             Guid = Guid.NewGuid();
         }
 
@@ -30,6 +31,9 @@ namespace Betting.Entity.Sqlite
 
         [Indexed]
         public Guid BetId { get; set; }
+
+        [Indexed]
+        public Guid StrategyId { get; }
 
         //public string Key { get; set; }
 
