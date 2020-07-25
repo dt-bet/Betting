@@ -6,8 +6,6 @@ namespace Betting.Abstract
 {
     public interface IOrder : UtilityInterface.NonGeneric.Database.IGuid
     {
-        Guid Guid { get; set; }
-
         int AveragePriceMatched { get; set; }
 
         Guid BetId { get; set; }

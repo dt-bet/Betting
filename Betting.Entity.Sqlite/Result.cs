@@ -2,10 +2,11 @@
 using SQLite;
 using System;
 using Betting.Enum;
+using Betting.Abstract.DAL;
 
 namespace Betting.Entity.Sqlite
 {
-    public class Result : IResult, UtilityInterface.NonGeneric.Database.IId
+    public class Result : DBEntity, IResult
     {
         public Result(Guid marketId, Guid winnerId, AbsolutePosition playerStatus)
         {
@@ -18,13 +19,10 @@ namespace Betting.Entity.Sqlite
         {
         }
 
-        [PrimaryKey]
-        public long Id { get; set; }
-
-        public Guid Guid { get; set; }
-
+        [Indexed]
         public Guid MarketId { get; set; }
 
+        [Indexed]
         public Guid WinnerId { get; set; }
 
         public AbsolutePosition PlayerStatus { get; set; }

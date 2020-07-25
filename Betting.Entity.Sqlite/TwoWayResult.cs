@@ -1,14 +1,14 @@
 ﻿using Betting.Abstract;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Betting.Enum;
 using SQLite;
+using Betting.Abstract.DAL;
 
 namespace Betting.Entity.Sqlite
 {
-    [SQLite.Table("Result")]
-    public class TwoWayResult : IEquatable<TwoWayResult>, ITwoWayResult, IResult, UtilityInterface.NonGeneric.Database.IId
+    [Table("Result")]
+    public class TwoWayResult : DBEntity, IEquatable<TwoWayResult>, ITwoWayResult, IResult
     {
         public TwoWayResult(Guid marketId,
             Guid player1Id, AbsolutePosition player1Status,
@@ -25,17 +25,15 @@ namespace Betting.Entity.Sqlite
         {
         }
 
-        [PrimaryKey]
-        public long Id { get; set; }
-
-        public Guid Guid { get; set; }
-
+        [Indexed]
         public Guid MarketId { get; set; }
 
+        [Indexed]
         public Guid Player1Id { get; set; }
 
         public AbsolutePosition Player1Status { get; set; }
 
+        [Indexed]
         public Guid Player2Id { get; set; }
 
         public AbsolutePosition Player2Status { get; set; }

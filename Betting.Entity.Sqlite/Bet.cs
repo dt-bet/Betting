@@ -3,19 +3,20 @@ using SQLite;
 using System;
 using System.Collections.Generic;
 using Betting.Enum;
+using Betting.Abstract.DAL;
 
 namespace Betting.Entity.Sqlite
 {
-    public class Bet : IBet, IEquatable<Bet>, UtilityInterface.NonGeneric.Database.IId
+    public class Bet : DBEntity, IBet, IEquatable<Bet>
     {
-        public Bet(Guid marketId, ThreeWayBetType type, uint price, int amount, Guid selectionId, DateTime eventDate, DateTime date, Guid strategy, TradeSide TradeSide = TradeSide.Back) : this
-            (marketId, price, amount, selectionId, eventDate, date, strategy, TradeSide)
+        public Bet(Guid marketId, ThreeWayBetType type, uint price, int amount, Guid selectionId, DateTime eventDate, DateTime date, Guid strategyId, TradeSide TradeSide = TradeSide.Back) : this
+            (marketId, price, amount, selectionId, eventDate, date, strategyId, TradeSide)
         {
             this.Type = type;
         }
 
-        public Bet(Guid marketId, uint price, int amount, Guid selectionId, DateTime eventDate, DateTime date, Guid strategy, TradeSide TradeSide= TradeSide.Back)
-            : this(marketId, default, TradeSide, price, amount, selectionId, eventDate, date, Guid.NewGuid(),strategy)
+        public Bet(Guid marketId, uint price, int amount, Guid selectionId, DateTime eventDate, DateTime date, Guid strategyId, TradeSide TradeSide = TradeSide.Back)
+            : this(marketId, default, TradeSide, price, amount, selectionId, eventDate, date, Guid.NewGuid(), strategyId)
         {
         }
 
@@ -34,16 +35,11 @@ namespace Betting.Entity.Sqlite
             Guid = guid;
 
         }
-        
-        #warning for sqlite use only
+
+#warning for sqlite use only
         public Bet()
         {
         }
-
-        [PrimaryKey]
-        public long Id { get; set; }
-
-        public Guid Guid { get; set; }
 
         public Guid SelectionId { get; set; }
 
@@ -63,7 +59,6 @@ namespace Betting.Entity.Sqlite
 
         public DateTime EventDate { get; set; }
 
-  
         public override string ToString()
         {
             return "EventDate " + EventDate.ToString("g") + " Price " + Price + " Amount " + Amount;
@@ -77,7 +72,6 @@ namespace Betting.Entity.Sqlite
         public bool Equals(Bet other)
         {
             return other != null &&
-                   Guid.Equals(other.Guid) &&
                    PlacedDate == other.PlacedDate &&
                    Type == other.Type &&
                    MarketId == other.MarketId &&
@@ -85,13 +79,12 @@ namespace Betting.Entity.Sqlite
                    Amount == other.Amount &&
                    SelectionId == other.SelectionId &&
                    EventDate == other.EventDate;
-                   //Key == other.Key;
+            //Key == other.Key;
         }
 
         public override int GetHashCode()
         {
             HashCode hash = new HashCode();
-            hash.Add(Guid);
             hash.Add(PlacedDate);
             hash.Add(Type);
             hash.Add(MarketId);

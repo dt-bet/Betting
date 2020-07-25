@@ -29,8 +29,7 @@ namespace Betting.View
 
         private static void UseBrowsableAttributeOnColumnChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            var dataGrid = obj as DataGrid;
-            if (dataGrid != null)
+            if (obj is DataGrid dataGrid)
             {
                 if ((bool)e.NewValue)
                 {
@@ -45,14 +44,11 @@ namespace Betting.View
 
         private static void DataGridOnAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            var propDesc = e.PropertyDescriptor as PropertyDescriptor;
-
-            if (propDesc != null)
+            if (e.PropertyDescriptor is PropertyDescriptor propDesc)
             {
                 foreach (Attribute att in propDesc.Attributes)
                 {
-                    var browsableAttribute = att as BrowsableAttribute;
-                    if (browsableAttribute != null)
+                    if (att is BrowsableAttribute browsableAttribute)
                     {
                         if (!browsableAttribute.Browsable)
                         {
@@ -63,8 +59,7 @@ namespace Betting.View
                     // As proposed by "dba" stackoverflow user on webpage: 
                     // https://stackoverflow.com/questions/4000132/is-there-a-way-to-hide-a-specific-column-in-a-datagrid-when-autogeneratecolumns
                     // I added few next lines:
-                    var displayName = att as DisplayNameAttribute;
-                    if (displayName != null)
+                    if (att is DisplayNameAttribute displayName)
                     {
                         e.Column.Header = displayName.DisplayName;
                     }

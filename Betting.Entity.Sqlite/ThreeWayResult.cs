@@ -7,7 +7,7 @@ using Betting.Enum;
 namespace Betting.Entity.Sqlite
 {
     [SQLite.Table("Result")]
-    public class ThreeWayResult : TwoWayResult, IThreeWayResult, IEquatable<ThreeWayResult>, UtilityInterface.NonGeneric.Database.IId
+    public class ThreeWayResult : TwoWayResult, IThreeWayResult, IEquatable<ThreeWayResult>
     {
         public ThreeWayResult(Guid marketId,
             Guid player1Id, AbsolutePosition player1Status,

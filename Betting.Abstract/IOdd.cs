@@ -6,13 +6,11 @@ namespace Betting.Abstract
 {
     public interface IOdd : UtilityInterface.NonGeneric.Database.IGuid
     {
-        Guid Guid { get; }
-
         Guid MarketId { get; }
 
         DateTime EventDate { get; }
 
-        //string Competition { get; }
+        string Competition { get; }
 
         Guid CompetitionId { get; }
 

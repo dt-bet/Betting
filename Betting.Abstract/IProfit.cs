@@ -4,8 +4,6 @@ namespace Betting.Abstract
 {
     public interface IProfit : UtilityInterface.NonGeneric.Database.IGuid
     {
-        Guid Guid { get; set; }
-
         int Amount { get; }
 
         Guid BetId { get; }

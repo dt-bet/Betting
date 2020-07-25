@@ -6,10 +6,8 @@ using Betting.Enum;
 namespace Betting.Entity.Sqlite
 {
 
-    public class Price : IPrice, UtilityInterface.NonGeneric.Database.IId
+    public class Price : Abstract.DAL.DBEntity, IPrice
     {
-        //public const int Factor = 100;
-        
         #warning This constructor is for sqlite
         public Price()
         {
@@ -24,21 +22,19 @@ namespace Betting.Entity.Sqlite
             //Name = name;
             Value = value;
             this.Side = priceSide;
-        
         }
 
-        [PrimaryKey]
-        public long Id { get; set; }
 
-        public Guid Guid { get; set; }
-
+        [Indexed]
         public Guid SelectionId { get; set; }
-     
-        public string SelectionName { get; set; }
-
-        public Guid MarketId { get; set; }
 
         //public string Name { get; set; }
+        public string SelectionName { get; set; }
+
+        [Indexed]
+        public Guid MarketId { get; set; }
+
+        [Indexed]
         public Guid OddId { get; set; }
 
         public uint Value { get; set; }

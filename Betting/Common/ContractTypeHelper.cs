@@ -13,7 +13,7 @@ namespace Betting.Common
             return new Dictionary<ContractType, decimal>
             {
              { ContractType.Home, home(match)},
-             {  ContractType.Draw ,draw(match)},
+             { ContractType.Draw ,draw(match)},
              { ContractType.Away,away(match)},
             };
         }

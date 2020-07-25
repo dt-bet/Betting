@@ -1,4 +1,5 @@
 ﻿using Betting.Abstract;
+using Betting.Abstract.DAL;
 using Betting.Enum;
 using SQLite;
 using System;
@@ -8,7 +9,7 @@ using System.ComponentModel;
 namespace Betting.Entity.Sqlite
 {
     [Table("Odd")]
-    public class TwoWayOdd : IOdd, ITwoWayOdd, UtilityInterface.NonGeneric.Database.IId
+    public class TwoWayOdd : DBEntity, IOdd, ITwoWayOdd
     {
         //public const int Factor = 100;
         protected const string Odd = "Odd";
@@ -38,17 +39,15 @@ namespace Betting.Entity.Sqlite
         {
         }
 
-        [PrimaryKey]
-        public long Id { get; set; }
-
-        public Guid Guid { get; set; }
-
         public DateTime EventDate { get; set; }
 
-        //public string Competition { get; set; }
+        public string Competition { get; set; }
 
+        [Indexed]
         public Guid CompetitionId { get; set; }
 
+
+        [Indexed]
         public Guid MarketId { get; set; }
 
         [Category("1")]
@@ -65,6 +64,7 @@ namespace Betting.Entity.Sqlite
 
         [Category("2")]
         [Description(Id_)]
+        [Indexed]
         public Guid Player2Id { get; set; }
 
         [Category("1")]

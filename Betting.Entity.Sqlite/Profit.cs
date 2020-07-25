@@ -1,11 +1,12 @@
 ﻿using Betting.Abstract;
+using Betting.Abstract.DAL;
 using SQLite;
 using System;
 using System.Collections.Generic;
 
 namespace Betting.Entity.Sqlite
 {
-    public class Profit : IProfit, IEquatable<Profit>, UtilityInterface.NonGeneric.Database.IId
+    public class Profit : DBEntity, IProfit, IEquatable<Profit>
     {
         public const int Factor = 100;
         public Profit() { }
@@ -22,15 +23,12 @@ namespace Betting.Entity.Sqlite
             Guid = Guid.NewGuid();
         }
 
-        [PrimaryKey]
-        public long Id { get; set; }
-
-        public Guid Guid { get; set; }
-
         public Guid MarketId { get; set; }
 
+        [Indexed]
         public Guid SelectionId { get; set; }
 
+        [Indexed]
         public Guid BetId { get; set; }
 
         //public string Key { get; set; }

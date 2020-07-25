@@ -1,5 +1,6 @@
 ﻿using Betting.Abstract;
 using Betting.Enum;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,7 @@ namespace Betting.Entity.Sqlite
 
         [Category("3")]
         [Description(Id_)]
+        [Indexed]
         public Guid Player3Id { get; set; }
 
         [Category("3")]

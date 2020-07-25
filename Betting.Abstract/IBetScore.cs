@@ -6,11 +6,7 @@ namespace Betting.Abstract
 {
     public interface IBetScore : UtilityInterface.NonGeneric.Database.IGuid
     {
-        Guid Guid { get; set; }
-
-        string Source { get; }
-
-        string Key { get; }
+        Guid StrategyId { get;  }
 
         int AvgAmtOverWager { get; }
 

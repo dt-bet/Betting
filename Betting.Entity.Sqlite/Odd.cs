@@ -4,10 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Betting.Enum;
+using Betting.Abstract.DAL;
 
 namespace Betting.Entity.Sqlite
 {
-    public class Odd : IOdd, UtilityInterface.NonGeneric.Database.IId
+    public class Odd : DBEntity, IOdd
     {
         public Odd(DateTime eventDate, Guid competitionId, Guid marketId, DateTime oddsDate, Guid guid) :
        this(eventDate,  competitionId, marketId, oddsDate)
@@ -30,17 +31,14 @@ namespace Betting.Entity.Sqlite
         {
         }
 
-        [PrimaryKey]
-        public long Id { get; set; }
-
-        public Guid Guid { get; set; }
-
         public DateTime EventDate { get; set; }
 
-        //public string Competition { get; set; }
+        public string Competition { get; set; }
 
+        [Indexed]
         public Guid CompetitionId { get; set; }
 
+        [Indexed]
         public Guid MarketId { get; set; }
 
         //public MarketType MarketType { get; set; }

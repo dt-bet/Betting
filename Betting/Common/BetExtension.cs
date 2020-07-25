@@ -16,8 +16,6 @@ namespace Betting.Math
                 throw new Exception("TradeSide not valid");
         }
 
-
-
         public static decimal UnitProfit(this Bet bet)
         {
             if (bet.Side.Equals(TradeSide.Back))
@@ -27,7 +25,6 @@ namespace Betting.Math
             else
                 throw new Exception("TradeSide not valid");
         }
-
 
         public static NodaMoney.Money GetProfit(this Bet bet)
         {

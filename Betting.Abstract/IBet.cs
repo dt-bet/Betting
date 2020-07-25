@@ -1,14 +1,10 @@
-﻿using Betting.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 using Betting.Enum;
 
 namespace Betting.Abstract
 {
     public interface IBet: UtilityInterface.NonGeneric.Database.IGuid
     {
-        Guid Guid { get; set; }
 
         Guid MarketId { get; }
 

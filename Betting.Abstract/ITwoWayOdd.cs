@@ -5,7 +5,6 @@ namespace Betting.Abstract
 {
     public interface ITwoWayOdd : IOdd
     {
-        Guid Guid { get; set; }
         Guid Player1Id { get; set; }
         string Player1Name { get; set; }
         uint Player1Odd { get; set; }

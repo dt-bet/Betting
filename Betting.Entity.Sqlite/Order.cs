@@ -1,17 +1,14 @@
 ﻿using Betting.Abstract;
 using SQLite;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using UtilityEnum;
 using Betting.Enum;
+using Betting.Abstract.DAL;
 
 namespace Betting.Entity.Sqlite
 {
-    public class Order : IOrder
+    public class Order : DBEntity, IOrder
     {
-        //public const short Factor = 100;
-
         public Order()
         {
         }
@@ -42,44 +39,24 @@ namespace Betting.Entity.Sqlite
             Guid = Guid.NewGuid();
         }
 
-        [PrimaryKey]
-        public long Id { get; set; }
-
-        public Guid Guid { get; set; }
-
+        [Indexed]
         public Guid BetId { get; set; }
 
-
+        [Indexed]
         public Guid MarketId { get; set; }
 
-
+        [Indexed]
         public Guid SelectionId { get; set; }
 
-
-        //public double Handicap { get; set; }
-
-
-        //public PriceSize PriceSize { get; set; }
         public int Price { get; set; }
 
         public int Size { get; set; }
 
         public int SizeMatched { get; set; }
 
-        //public double BspLiability { get; set; }
-
-
         public TradeSide Side { get; set; }
 
-
-        //public OrderStatus Status { get; set; }
         public YesNo IsComplete { get; set; }
-
-        //public PersistenceType PersistenceType { get; set; }
-
-
-        //public OrderType OrderType { get; set; }
-
 
         public DateTime PlacedDate { get; set; }
 
@@ -89,6 +66,17 @@ namespace Betting.Entity.Sqlite
 
 
 
+        //public double Handicap { get; set; }
+
+        //public OrderStatus Status { get; set; }
+        //public PriceSize PriceSize { get; set; }
+
+        //public double BspLiability { get; set; }
+
+        //public PersistenceType PersistenceType { get; set; }
+
+
+        //public OrderType OrderType { get; set; }
         //public double SizeRemaining { get; set; }
 
         //public double SizeLapsed { get; set; }

@@ -41,9 +41,6 @@ namespace Betting
         }
 
 
-
-
-
         public static IEnumerable<Profit> JoinWithOdds(IEnumerable<IProfit> profits, IEnumerable<IOdd> odds, string key = "Key is Null")
 
         => from profit in profits
@@ -51,26 +48,12 @@ namespace Betting
            on profit.MarketId equals odd.MarketId
            into tempOdds
            from odd_price in tempOdds.SelectMany(o => o.Prices.Where(a => a.SelectionId == profit.SelectionId && profit.Price == a.Value).Select(p => (o, p))).Take(1)
-           //let comp = odd_price.o.Competition
-           //let names = odd_price.o.Prices.Select(a => a.Name)
-           //let combinedName = string.Join(',', names)
-           //let selectionName = odd_price.p.Name
-           select new Profit(profit.MarketId, key, profit.EventDate, profit.Amount, profit.SelectionId, profit.Wager, profit.Price, profit.BetId,"","","");
+           let comp = odd_price.o.Competition
+           let names = odd_price.o.Prices.Select(a => a.SelectionName)
+           let combinedName = string.Join(',', names)
+           let selectionName = odd_price.p.SelectionName
+           select new Profit(profit.MarketId, key, profit.EventDate, profit.Amount, profit.SelectionId, profit.Wager, profit.Price, profit.BetId, "", comp, selectionName);
 
 
-
-
-        //public async Task<(double mean, double variance)> GetStatistics(IModel model)
-        //{
-        //    var bets = (await model.Bets);
-
-        //    var pts = ProfitHelper.SelectProfits(bets, (await model.Results)).AsParallel().ToArray();
-
-        //    var xx = Summariser.EvaluateStatistics(pts);
-
-        //    return xx;
-        //}
     }
-
-
 }
