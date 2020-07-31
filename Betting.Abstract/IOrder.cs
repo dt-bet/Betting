@@ -6,27 +6,26 @@ namespace Betting.Abstract
 {
     public interface IOrder : UtilityInterface.NonGeneric.Database.IGuid
     {
-        int AveragePriceMatched { get; set; }
+        Guid BetId { get; }
 
-        Guid BetId { get; set; }
+        Guid MarketId { get; }
 
-        Guid MarketId { get; set; }
+        Guid SelectionId { get; }
 
-        Guid SelectionId { get; set; }
+        YesNo IsComplete { get; }
 
-        YesNo IsComplete { get; set; }
+        DateTime MatchedDate { get; }
 
-        DateTime MatchedDate { get; set; }
+        DateTime PlacedDate { get; }
 
-        DateTime PlacedDate { get; set; }
+        uint Price { get; }
 
-        int Price { get; set; }
+        uint AveragePriceMatched { get; }
 
+        uint Size { get;}
 
-        TradeSide Side { get; set; }
+        uint SizeMatched { get; }
 
-        int Size { get; set; }
-
-        int SizeMatched { get; set; }
+        TradeSide Side { get; }
     }
 }

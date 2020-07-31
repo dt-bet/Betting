@@ -5,12 +5,12 @@ namespace Betting.Abstract
 {
     public interface ITwoWayOdd : IOdd
     {
-        Guid Player1Id { get; set; }
-        string Player1Name { get; set; }
-        uint Player1Odd { get; set; }
-        Guid Player2Id { get; set; }
-        string Player2Name { get; set; }
-        uint Player2Odd { get; set; }
+        Guid Player1Id { get; }
+        string Player1Name { get; }
+        uint Player1Odd { get; }
+        Guid Player2Id { get; }
+        string Player2Name { get; }
+        uint Player2Odd { get; }
 
         string ToString();
     }

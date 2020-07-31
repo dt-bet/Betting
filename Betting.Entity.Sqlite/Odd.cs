@@ -2,22 +2,24 @@
 using SQLite;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Betting.Enum;
 using Betting.Abstract.DAL;
 
 namespace Betting.Entity.Sqlite
 {
+    [Dapper.Contrib.Extensions.Table("Odd")]
     public class Odd : DBEntity, IOdd
     {
-        public Odd(DateTime eventDate, Guid competitionId, Guid marketId, DateTime oddsDate, Guid guid) :
-       this(eventDate,  competitionId, marketId, oddsDate)
+        public Odd(Guid guid, DateTime eventDate, Guid competitionId, Guid marketId, DateTime oddsDate) :
+            this(eventDate, competitionId, marketId, oddsDate, guid)
         {
-
-            Guid = guid;
         }
 
-        public Odd(DateTime eventDate, Guid competitionId, Guid marketId, DateTime oddsDate)
+        public Odd(DateTime eventDate, Guid competitionId, Guid marketId, DateTime oddsDate) :
+            this(eventDate, competitionId, marketId, oddsDate, GuidHelper.Merge(marketId, GuidHelper.ToGuid(oddsDate)))
+        {
+        }
+
+        private Odd(DateTime eventDate, Guid competitionId, Guid marketId, DateTime oddsDate, Guid guid) : base(guid)
         {
             EventDate = eventDate;
             CompetitionId = competitionId;
@@ -25,8 +27,8 @@ namespace Betting.Entity.Sqlite
             OddsDate = oddsDate;
             Guid = Guid.NewGuid();
         }
-        
-        #warning This constructor is for sqlite
+
+#warning This constructor is for sqlite
         public Odd()
         {
         }
@@ -45,13 +47,8 @@ namespace Betting.Entity.Sqlite
 
         public DateTime OddsDate { get; set; }
 
-        [SQLite.Ignore]
+        [Ignore]
         public IReadOnlyCollection<IPrice> Prices { get; set; }
 
-
-        public override string ToString()
-        {
-            return base.ToString();
-        }
     }
 }

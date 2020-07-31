@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Betting.Enum;
+using Dapper.Contrib.Extensions;
 
 namespace Betting.Entity.Sqlite
 {
+    [Dapper.Contrib.Extensions.Table("Result")]
     [SQLite.Table("Result")]
     public class ThreeWayResult : TwoWayResult, IThreeWayResult, IEquatable<ThreeWayResult>
     {
@@ -13,7 +15,17 @@ namespace Betting.Entity.Sqlite
             Guid player1Id, AbsolutePosition player1Status,
             Guid player2Id, AbsolutePosition player2Status,
             Guid player3Id, AbsolutePosition player3Status
-            ) : base(marketId, player1Id, player1Status, player2Id, player2Status)
+            ) : base(marketId, marketId, player1Id, player1Status, player2Id, player2Status)
+        {
+            Player3Id = player3Id;
+            Player3Status = player3Status;
+        }
+
+        public ThreeWayResult(Guid guid, Guid marketId,
+    Guid player1Id, AbsolutePosition player1Status,
+    Guid player2Id, AbsolutePosition player2Status,
+    Guid player3Id, AbsolutePosition player3Status
+    ) : base(guid, marketId, player1Id, player1Status, player2Id, player2Status)
         {
             Player3Id = player3Id;
             Player3Status = player3Status;
@@ -25,8 +37,12 @@ namespace Betting.Entity.Sqlite
 
         public Guid Player3Id { get; set; }
 
+
+        [SQLite.Indexed]
         public AbsolutePosition Player3Status { get; set; }
 
+        [Write(false)]
+        [SQLite.Ignore]
         public override Guid WinnerId
         {
             get

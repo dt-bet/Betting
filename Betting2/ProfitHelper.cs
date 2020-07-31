@@ -59,7 +59,9 @@ namespace Betting.A
                              bet.SelectionId,
                               bet.Amount,
                                bet.Price,
-                                bet.Guid)
+                                bet.Guid,
+                                bet.StrategyId
+                                )
                              {
                                  //Key = "No Key"
                              }

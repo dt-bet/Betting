@@ -10,17 +10,18 @@ namespace Betting.Abstract
 
         Guid SelectionId { get; }
 
-        Guid StrategyId { get; set; }
+        Guid StrategyId { get; }
 
         int Amount { get; }
 
         DateTime EventDate { get; }
 
-        DateTime PlacedDate { get; set; }
+        DateTime PlacedDate { get; }
 
         uint Price { get; }
 
         ThreeWayBetType Type { get; }
 
+        Guid OddId { get; }
     }
 }

@@ -6,12 +6,24 @@ using System.Collections.Generic;
 
 namespace Betting.Entity.Sqlite
 {
+    [Dapper.Contrib.Extensions.Table("Profit")]
     public class Profit : DBEntity, IProfit, IEquatable<Profit>
     {
         public const int Factor = 100;
-        public Profit() { }
 
-        public Profit(Guid marketId, DateTime eventDate, int amount, Guid selectionId, int wager, uint price, Guid betId, Guid strategyId)
+
+        public Profit(Guid marketId, DateTime eventDate, int amount, Guid selectionId, int wager, uint price, Guid betId, Guid strategyId):
+            this(marketId,  eventDate,  amount,  selectionId,  wager,  price,  betId,  strategyId, betId)
+        {
+        }
+
+        public Profit(Guid guid, Guid marketId, DateTime eventDate, int amount, Guid selectionId, int wager, uint price, Guid betId, Guid strategyId):
+            this(  marketId,  eventDate,  amount,  selectionId,  wager,  price,  betId,  strategyId, guid)
+        {
+
+        }
+
+        public Profit(Guid marketId, DateTime eventDate, int amount, Guid selectionId, int wager, uint price, Guid betId, Guid strategyId, Guid guid):base(guid)
         {
             MarketId = marketId;
             EventDate = eventDate;
@@ -24,6 +36,9 @@ namespace Betting.Entity.Sqlite
             Guid = Guid.NewGuid();
         }
 
+        public Profit() { }
+
+        [Indexed]
         public Guid MarketId { get; set; }
 
         [Indexed]

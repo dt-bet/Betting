@@ -8,10 +8,24 @@ namespace Betting.Abstract.DAL
 {
     public abstract class DBEntity : IId, IGuid, IEquatable<DBEntity>
     {
+        protected DBEntity()
+        {
+        }
+
+        protected DBEntity(Guid guid)
+        {
+            Guid = guid;
+        }
+
+        protected DBEntity(long id, Guid guid) : this(guid)
+        {
+            Id = id;
+        }
+
         [PrimaryKey]
         public long Id { get; set; }
 
-        [Indexed, Unique]
+        [Unique]
         public Guid Guid { get; set; }
 
         public override bool Equals(object obj)

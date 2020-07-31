@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <AssemblyVersion>2.2.2.0</AssemblyVersion>
-    <FileVersion>2.2.2.0</FileVersion>
-    <Version>2.2.9</Version>
+    <AssemblyVersion>2.2.36.0</AssemblyVersion>
+    <FileVersion>2.2.36.0</FileVersion>
+    <Version>2.2.36</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Product>Betting.Entity.SQLite</Product>
     <PackageId>Betting.Entity.SQLite</PackageId>
@@ -25,6 +25,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.35" />
+    <PackageReference Include="Dapper.Contrib" Version="2.0.35" />
     <PackageReference Include="sqlite-net-base" Version="1.6.292" />
   </ItemGroup>
 

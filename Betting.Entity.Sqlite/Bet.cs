@@ -7,29 +7,29 @@ using Betting.Abstract.DAL;
 
 namespace Betting.Entity.Sqlite
 {
+    [Dapper.Contrib.Extensions.Table("Bet")]
     public class Bet : DBEntity, IBet, IEquatable<Bet>
     {
-        public Bet(Guid marketId, ThreeWayBetType type, uint price, int amount, Guid selectionId, DateTime eventDate, DateTime date, Guid strategyId, TradeSide TradeSide = TradeSide.Back) : this
-            (marketId, price, amount, selectionId, eventDate, date, strategyId, TradeSide)
-        {
-            this.Type = type;
-        }
-
-        public Bet(Guid marketId, uint price, int amount, Guid selectionId, DateTime eventDate, DateTime date, Guid strategyId, TradeSide TradeSide = TradeSide.Back)
-            : this(marketId, default, TradeSide, price, amount, selectionId, eventDate, date, Guid.NewGuid(), strategyId)
+        public Bet(Guid guid, Guid marketId, uint price, int amount, Guid selectionId, Guid oddId, DateTime eventDate, DateTime date, Guid strategyId, TradeSide tradeSide = TradeSide.Back) : this
+            (marketId, price, amount, selectionId, oddId, eventDate, date, strategyId, tradeSide, guid)
         {
         }
 
-        public Bet(Guid marketId, ThreeWayBetType type, TradeSide tradeSide, uint price, int amount, Guid selectionId, DateTime eventDate, DateTime date, Guid guid, Guid strategyId)
+        public Bet(Guid marketId, uint price, int amount, Guid selectionId, Guid oddId, DateTime eventDate, DateTime date, Guid strategyId, TradeSide tradeSide = TradeSide.Back)
+            : this(marketId, price, amount, selectionId, oddId, eventDate, date, strategyId, tradeSide, GuidHelper.Merge(marketId, strategyId,oddId, selectionId))
+        {
+        }
+
+        private Bet(Guid marketId, uint price, int amount, Guid selectionId, Guid oddId, DateTime eventDate, DateTime date, Guid strategyId, TradeSide tradeSide, Guid guid)
         {
             Guid = guid;
             StrategyId = strategyId;
             MarketId = marketId;
-            Type = type;
-            TradeSide = tradeSide;
+            Side = tradeSide;
             Price = price;
             Amount = amount;
             SelectionId = selectionId;
+            OddId = oddId;
             EventDate = eventDate;
             PlacedDate = date;
             Guid = guid;
@@ -47,10 +47,11 @@ namespace Betting.Entity.Sqlite
 
         public DateTime PlacedDate { get; set; }
 
-        public ThreeWayBetType Type { get; set; }
+        public Guid OddId { get; set; }
 
-        public TradeSide TradeSide { get; }
+        public TradeSide Side { get; }
 
+        [Indexed]
         public Guid MarketId { get; set; }
 
         public uint Price { get; set; }
@@ -58,6 +59,8 @@ namespace Betting.Entity.Sqlite
         public int Amount { get; set; }
 
         public DateTime EventDate { get; set; }
+
+        public ThreeWayBetType Type { get; set; }
 
         public override string ToString()
         {
@@ -111,7 +114,7 @@ namespace Betting.Entity.Sqlite
     {
         public static Bet WithAmount(this IBet bet, int amount)
         {
-            return new Bet(bet.MarketId, bet.Type, bet.Price, amount, bet.SelectionId, bet.EventDate, bet.PlacedDate, bet.Guid);
+            return new Bet(bet.Guid, bet.MarketId, bet.Price, amount, bet.SelectionId, bet.OddId, bet.EventDate, bet.PlacedDate, bet.Guid) { Type = bet.Type };
         }
     }
 }

@@ -4,15 +4,37 @@ using System.Collections.Generic;
 using Betting.Enum;
 using SQLite;
 using Betting.Abstract.DAL;
+using Dapper.Contrib.Extensions;
 
 namespace Betting.Entity.Sqlite
 {
-    [Table("Result")]
-    public class TwoWayResult : DBEntity, IEquatable<TwoWayResult>, ITwoWayResult, IResult
+    [Dapper.Contrib.Extensions.Table("Result")]
+    [SQLite.Table("Result")]
+    public class TwoWayResult : DBEntity, ITwoWayResult, IResult
     {
-        public TwoWayResult(Guid marketId,
+        public TwoWayResult(
+            Guid guid,
+            Guid marketId,
             Guid player1Id, AbsolutePosition player1Status,
-            Guid player2Id, AbsolutePosition player2Status)
+            Guid player2Id, AbsolutePosition player2Status):
+                     this(marketId, player1Id, player1Status, player2Id, player2Status, guid)
+        {
+        }
+
+        public TwoWayResult(
+     Guid marketId,
+     Guid player1Id, AbsolutePosition player1Status,
+     Guid player2Id, AbsolutePosition player2Status):
+            this(marketId, player1Id, player1Status, player2Id, player2Status, marketId)
+        {
+
+        }
+
+        public TwoWayResult(
+     Guid marketId,
+     Guid player1Id, AbsolutePosition player1Status,
+     Guid player2Id, AbsolutePosition player2Status,
+         Guid guid):base(guid)
         {
             Player2Id = player2Id;
             Player2Status = player2Status;
@@ -20,7 +42,6 @@ namespace Betting.Entity.Sqlite
             Player1Id = player1Id;
             Player1Status = player1Status;
         }
-
         public TwoWayResult()
         {
         }
@@ -28,16 +49,16 @@ namespace Betting.Entity.Sqlite
         [Indexed]
         public Guid MarketId { get; set; }
 
-        [Indexed]
         public Guid Player1Id { get; set; }
 
         public AbsolutePosition Player1Status { get; set; }
 
-        [Indexed]
         public Guid Player2Id { get; set; }
 
         public AbsolutePosition Player2Status { get; set; }
 
+        [Write(false)]
+        [Ignore]
         public virtual Guid WinnerId
         {
             get
@@ -50,36 +71,39 @@ namespace Betting.Entity.Sqlite
             }
         }
 
+        //protected virtual void SetGuid(Guid guid)
+        //{
+        //    return MarketId;
+        //}
 
+        //public override bool Equals(object obj)
+        //{
+        //    return obj is TwoWayResult result &&
+        //           Player1Id == result.Player1Id &&
+        //           Player1Status == result.Player1Status &&
+        //           Player2Id == result.Player2Id &&
+        //           Player2Status == result.Player2Status &&
+        //           MarketId == result.MarketId;
+        //}
 
-        public override bool Equals(object obj)
-        {
-            return obj is TwoWayResult result &&
-                   Player1Id == result.Player1Id &&
-                   Player1Status == result.Player1Status &&
-                   Player2Id == result.Player2Id &&
-                   Player2Status == result.Player2Status &&
-                   MarketId == result.MarketId;
-        }
+        //public override int GetHashCode()
+        //{
+        //    return HashCode.Combine(Player1Id, Player1Status, Player2Id, Player2Status, MarketId);
+        //}
 
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(Player1Id, Player1Status, Player2Id, Player2Status, MarketId);
-        }
+        //public bool Equals(TwoWayResult other)
+        //{
+        //    return this.Equals(other);
+        //}
 
-        public bool Equals(TwoWayResult other)
-        {
-            return this.Equals(other);
-        }
+        //public static bool operator ==(TwoWayResult left, TwoWayResult right)
+        //{
+        //    return EqualityComparer<TwoWayResult>.Default.Equals(left, right);
+        //}
 
-        public static bool operator ==(TwoWayResult left, TwoWayResult right)
-        {
-            return EqualityComparer<TwoWayResult>.Default.Equals(left, right);
-        }
-
-        public static bool operator !=(TwoWayResult left, TwoWayResult right)
-        {
-            return !(left == right);
-        }
+        //public static bool operator !=(TwoWayResult left, TwoWayResult right)
+        //{
+        //    return !(left == right);
+        //}
     }
 }

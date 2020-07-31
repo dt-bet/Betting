@@ -5,7 +5,7 @@ namespace Betting.Abstract
 {
     public interface IThreeWayOdd : ITwoWayOdd
     {
-        Guid Player3Id { get; set; }
-        uint Player3Odd { get; set; }
+        Guid Player3Id { get; }
+        uint Player3Odd { get; }
     }
 }

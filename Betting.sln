@@ -31,7 +31,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Betting.Faker", "Betting.Fa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Betting.DAL", "Betting.DAL\Betting.DAL.csproj", "{6BDDE1C4-4493-4259-9856-FE9B6F2E8115}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Betting.Db.Demo", "Betting.Db.Demo\Betting.Db.Demo.csproj", "{413C91AA-9E75-4CBE-B6D3-5353A6B54EE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Betting.Db.Demo", "Betting.Db.Demo\Betting.Db.Demo.csproj", "{413C91AA-9E75-4CBE-B6D3-5353A6B54EE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Betting.Test", "Betting.Test\Betting.Test.csproj", "{0F259771-FCD9-47CB-B42E-D27389F5D340}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,6 +97,10 @@ Global
 		{413C91AA-9E75-4CBE-B6D3-5353A6B54EE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{413C91AA-9E75-4CBE-B6D3-5353A6B54EE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{413C91AA-9E75-4CBE-B6D3-5353A6B54EE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F259771-FCD9-47CB-B42E-D27389F5D340}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F259771-FCD9-47CB-B42E-D27389F5D340}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F259771-FCD9-47CB-B42E-D27389F5D340}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F259771-FCD9-47CB-B42E-D27389F5D340}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

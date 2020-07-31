@@ -14,7 +14,7 @@ namespace Betting.Map
 
             CreateMap<Betting.Entity.Sqlite.Market, Market>()
                 //.ForMember(dest => dest.Name, opt => opt.MapFrom(src => (MarketType)src.Type))
-                .ForMember(dest => dest.Contracts, opt => opt.MapFrom(src => src.Contracts.Select(_ => _.MapToModel())));
+                .ForMember(dest => dest.Contracts, opt => opt.MapFrom(src => src.Contracts.Select(c => c.MapToModel())));
 
 
             CreateMap<Betting.Entity.Sqlite.Contract, Contract>()

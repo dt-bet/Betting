@@ -7,23 +7,22 @@ using Betting.Abstract.DAL;
 
 namespace Betting.Entity.Sqlite
 {
+    [Dapper.Contrib.Extensions.Table("Order")]
     public class Order : DBEntity, IOrder
     {
-        public Order()
+
+        public Order(Guid betId, Guid marketId, Guid selectionId, uint price, uint averagePriceMatched, uint size, uint sizeMatched, TradeSide side, YesNo isComplete, DateTime placedDate, DateTime matchedDate) :
+            this(betId, marketId, selectionId, price, averagePriceMatched, size, sizeMatched, side, isComplete, placedDate, matchedDate, Guid.NewGuid())
         {
         }
 
-        public Order(Guid betId,
-            Guid marketId,
-            Guid selectionId,
-            int price,
-            int size,
-            TradeSide side,
-            YesNo isComplete,
-            DateTime placedDate,
-            DateTime matchedDate,
-            int averagePriceMatched,
-            int sizeMatched)
+        public Order(Guid guid, Guid betId, Guid marketId, Guid selectionId, uint price, uint averagePriceMatched, uint size, uint sizeMatched, TradeSide side, YesNo isComplete, DateTime placedDate, DateTime matchedDate) :
+            this(betId, marketId, selectionId, price, averagePriceMatched, size, sizeMatched, side, isComplete, placedDate, matchedDate, guid)
+        {
+        }
+
+        private Order(Guid betId, Guid marketId, Guid selectionId, uint price, uint averagePriceMatched, uint size, uint sizeMatched, TradeSide side, YesNo isComplete, DateTime placedDate, DateTime matchedDate, Guid guid) :
+            base(guid)
         {
             BetId = betId;
             MarketId = marketId;
@@ -36,7 +35,10 @@ namespace Betting.Entity.Sqlite
             MatchedDate = matchedDate;
             AveragePriceMatched = averagePriceMatched;
             SizeMatched = sizeMatched;
-            Guid = Guid.NewGuid();
+        }
+
+        public Order()
+        {
         }
 
         [Indexed]
@@ -48,11 +50,11 @@ namespace Betting.Entity.Sqlite
         [Indexed]
         public Guid SelectionId { get; set; }
 
-        public int Price { get; set; }
+        public uint Price { get; set; }
 
-        public int Size { get; set; }
+        public uint Size { get; set; }
 
-        public int SizeMatched { get; set; }
+        public uint SizeMatched { get; set; }
 
         public TradeSide Side { get; set; }
 
@@ -62,7 +64,7 @@ namespace Betting.Entity.Sqlite
 
         public DateTime MatchedDate { get; set; }
 
-        public int AveragePriceMatched { get; set; }
+        public uint AveragePriceMatched { get; set; }
 
 
 

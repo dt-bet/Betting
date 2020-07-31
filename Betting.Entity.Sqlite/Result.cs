@@ -6,9 +6,18 @@ using Betting.Abstract.DAL;
 
 namespace Betting.Entity.Sqlite
 {
+    [Dapper.Contrib.Extensions.Table("Result")]
     public class Result : DBEntity, IResult
     {
-        public Result(Guid marketId, Guid winnerId, AbsolutePosition playerStatus)
+        public Result(Guid marketId, Guid winnerId, AbsolutePosition playerStatus) : this(marketId, marketId, winnerId, playerStatus)
+        {
+        }
+
+        public Result(Guid guid, Guid marketId, Guid winnerId, AbsolutePosition playerStatus) : this( marketId, winnerId, playerStatus, guid)
+        {
+        }
+
+        private Result(Guid marketId, Guid winnerId, AbsolutePosition playerStatus, Guid guid) : base(guid)
         {
             MarketId = marketId;
             WinnerId = winnerId;
@@ -18,6 +27,7 @@ namespace Betting.Entity.Sqlite
         public Result()
         {
         }
+
 
         [Indexed]
         public Guid MarketId { get; set; }
