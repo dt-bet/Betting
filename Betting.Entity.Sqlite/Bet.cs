@@ -43,10 +43,13 @@ namespace Betting.Entity.Sqlite
 
         public Guid SelectionId { get; set; }
 
+        [Indexed]
         public Guid StrategyId { get; set; }
 
         public DateTime PlacedDate { get; set; }
 
+
+        [Indexed]
         public Guid OddId { get; set; }
 
         public TradeSide Side { get; }
@@ -60,6 +63,8 @@ namespace Betting.Entity.Sqlite
 
         public DateTime EventDate { get; set; }
 
+
+        [Indexed]
         public ThreeWayBetType Type { get; set; }
 
         public override string ToString()
