@@ -12,7 +12,6 @@ namespace Betting
         //static double[] limits = new double[] { -0.5, 0.5 };
         static readonly string[] contracts = new string[] { "Home", "Draw", "Away" };
 
-
         public static IEnumerable<Bet> MakeBackBets(DateTime date, NodaMoney.Money[] arbs, NodaMoney.Money[] runningProfits, byte week, Probability[] prices, double[] percentAtRisk)
         {
             for (int i = 0; i < 3; i++)
@@ -29,7 +28,6 @@ namespace Betting
                 yield return Make(TradeSide.Lay, date, unitAmounts[i], runningProfits[i], prices[i], percentAtRisk[i], contracts[i]);
             }
         }
-
 
 
         public static Bet Make(TradeSide side, DateTime date, NodaMoney.Money unitAmount, NodaMoney.Money runningProfit, Probability price, double percentAtRisk, string contract)
@@ -57,7 +55,5 @@ namespace Betting
             }
 
         }
-
-
     }
 }

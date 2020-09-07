@@ -8,17 +8,17 @@ namespace Betting.Entity.Sqlite
 
     public class Strategy : DBEntity, IStrategy
     {
-        public Strategy(Guid guid, string key, string description) : this(key, description, guid)
+        public Strategy(Guid guid, string name, string description) : this(name, description, guid)
         {
         }
 
-        public Strategy(string key, string description) : this(key, description, Guid.NewGuid())
+        public Strategy(string name, string description) : this(name, description, Guid.NewGuid())
         {
         }
 
-        private Strategy(string key, string description, Guid guid) : base(guid)
+        private Strategy(string name, string description, Guid guid) : base(guid)
         {
-            Key = key;
+            Name = name;
             Description = description;
         }
 
@@ -28,7 +28,7 @@ namespace Betting.Entity.Sqlite
         }
 
         [Unique]
-        public string Key { get; set; }
+        public string Name { get; set; }
 
         public string Description { get; set; }
 

@@ -33,8 +33,9 @@ namespace Betting.Faker
                       .RuleFor(a => a.OddsDate, f => DateTime.UnixEpoch + TimeSpan.FromDays(f.IndexGlobal - f.Random.Number(0, 14)))
                       .RuleFor(a => a.Prices, f => FakerPrice.Generate(3));
 
-        public static Faker<Strategy> FakerStrategy => new Faker<Strategy>().RuleFor(a => a.Guid, f => f.Random.Guid())
-              .RuleFor(a => a.Key, f => f.Lorem.Word())
+        public static Faker<Strategy> FakerStrategy => new Faker<Strategy>()
+            .RuleFor(a => a.Guid, f => f.Random.Guid())
+              .RuleFor(a => a.Name, f => f.Lorem.Word())
               .RuleFor(a => a.Description, f => f.Lorem.Paragraph());
 
 
