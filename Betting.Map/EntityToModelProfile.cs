@@ -20,8 +20,8 @@ namespace Betting.Map
             CreateMap<Betting.Entity.Sqlite.Contract, Contract>()
 
                 //.ForMember(dest => dest.SelectionName, opt => opt.MapFrom(src => src.Type))
-                .ForMember(dest => dest.Bids, opt => opt.MapFrom(src => src.Prices.Where(_ => _.Side == PriceSide.Bid).Select(_ => _.MapToModel())))
-                .ForMember(dest => dest.Offers, opt => opt.MapFrom(src => src.Prices.Where(_ => _.Side == PriceSide.Offer).Select(_ => _.MapToModel())));
+                .ForMember(dest => dest.Bids, opt => opt.MapFrom(src => src.Prices.Where(_ => _.Side == PriceSide.Bid).Select(_ => _.MapToModel(PriceSide.Bid))))
+                .ForMember(dest => dest.Offers, opt => opt.MapFrom(src => src.Prices.Where(_ => _.Side == PriceSide.Offer).Select(_ => _.MapToModel(PriceSide.Offer))));
 
             CreateMap<Betting.Entity.Sqlite.Price, Price>()
                   //.ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Side))
