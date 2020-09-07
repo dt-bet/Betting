@@ -19,7 +19,7 @@ namespace Betting.Model
 
         public PriceSource Source { get; set; }
 
-        public PriceSide Type { get; set; }
+        public PriceSide Side { get; set; }
 
         public Odd Value { get; set; }
 
