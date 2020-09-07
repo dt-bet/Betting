@@ -2,10 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <AssemblyVersion>1.3.0.0</AssemblyVersion>
-    <FileVersion>1.3.0.0</FileVersion>
-    <Version>1.3.2</Version>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyVersion>1.3.1.0</AssemblyVersion>
+    <FileVersion>1.3.1.0</FileVersion>
+    <Version>1.3.3</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -20,8 +19,20 @@
     <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <ShouldCreateLogs>True</ShouldCreateLogs>
+    <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
+    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <UpdatePackageVersion>True</UpdatePackageVersion>
+    <PackageVersionSettings>AssemblyVersion.Increment.None</PackageVersionSettings>
+    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="8.1.0" />
+    <PackageReference Include="AutoMapper" Version="10.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,4 +40,17 @@
     <ProjectReference Include="..\Betting.Model\Betting.Model.csproj" />
   </ItemGroup>
 
+
+  <!-- Only packs project if Configuration set to Release-->
+   <Target Name="CustomPack" AfterTargets="build" Condition="'$(Configuration)'=='Release'">
+     <Message Text="Custom Pack command starts ..." Importance="high" />
+     <!--  <Message Text="nuget pack $(MSBuildProjectFile) -IncludeReferencedProjects -OutputDirectory &quot;$(ProjectDir)bin\release&quot;  -Properties Configuration=Release" Importance="high" />-->
+     <Message Text="dotnet pack $(MSBuildProjectFile)  -o &quot;$(ProjectDir)bin\release&quot;" Importance="high" />
+     <Exec Command="dotnet pack $(MSBuildProjectFile)  -o &quot;$(ProjectDir)bin\release&quot;" />
+  </Target>
+  
+    <!-- Only copy packages if Configuration set to Release-->
+  <Target Name="PostPack" AfterTargets="CustomPack" Condition="'$(Configuration)'=='Release'">
+    <Exec Command="&#xD;&#xA;      set source=&quot;$(ProjectDir)bin\release &quot;&#xD;&#xA;&#xD;&#xA;      set target=&quot;C:\Users\rytal\Documents\Visual Studio 2019\NugetPackages &quot;  &#xD;&#xA;&#xD;&#xA;      RoboCopy %25source%25 %25target%25 *.nupkg  /XO  /NFL /NDL /NJH   &#xD;&#xA;&#xD;&#xA;      IF %ERRORLEVEL% GEQ 8 exit 1&#xD;&#xA;&#xD;&#xA;      exit 0" />
+  </Target>
 </Project>
