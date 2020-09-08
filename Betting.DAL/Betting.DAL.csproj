@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Declan Taylor</Authors>
     <Version>1.2.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
@@ -23,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Betting.Model\Betting.Model.csproj" />
     <ProjectReference Include="..\BettingSystem.Model\Betting.Model.csproj" />
   </ItemGroup>
 

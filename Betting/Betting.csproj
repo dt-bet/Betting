@@ -5,6 +5,7 @@
     <RootNamespace>Betting</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>1.2.0</Version>
+    <Authors>Declan Taylor</Authors>
     <Company />
     <AssemblyVersion>1.2.0.0</AssemblyVersion>
     <FileVersion>1.2.0.0</FileVersion>
