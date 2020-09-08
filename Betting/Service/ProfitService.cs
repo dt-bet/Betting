@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Betting.Enum;
 
 namespace Betting
 {
 
 
-    public class ProfitService : IProfitService
+    public class ProfitService// : IProfitService
     {
         ICollection<Bet> bets;
 
@@ -46,50 +47,50 @@ namespace Betting
             //}
         }
 
-        public void OnNext(Result result)
-        {
-            //results.Add(result);
+        //public void OnNext(Result result)
+        //{
+        //    //results.Add(result);
 
-            var bet = bets.Last();
+        //    var bet = bets.Last();
 
-            Profit profit = null;
+        //    Profit profit = null;
 
-            if(bet.Side==UtilityEnum.Betting.Side.Back && result.Value==UtilityEnum.Resolution.For)
-            {
-                profit = new Profit { Amount = bet.Amount * (bet.Price - 1m) };
+        //    if(bet.Side==TradeSide.Back && result.Value==UtilityEnum.Resolution.For)
+        //    {
+        //        profit = new Profit( amount :bet.Amount * (bet.Price - 1m) );
 
-            }
-            if (bet.Side == UtilityEnum.Betting.Side.Lay && result.Value == UtilityEnum.Resolution.For)
-            {
-                profit = new Profit { Amount = - bet.Amount * (bet.Price - 1m) };
+        //    }
+        //    if (bet.Side == TradeSide.Lay && result.Value == UtilityEnum.Resolution.For)
+        //    {
+        //        profit = new Profit(amount: - bet.Amount * (bet.Price - 1m) );
 
-            }
-            if (bet.Side == UtilityEnum.Betting.Side.Back && result.Value == UtilityEnum.Resolution.Against)
-            {
-                profit = new Profit { Amount =- bet.Amount  };
+        //    }
+        //    if (bet.Side == TradeSide.Back && result.Value == UtilityEnum.Resolution.Against)
+        //    {
+        //        profit = new Profit(amount :- bet.Amount  );
 
-            }
-            if (bet.Side == UtilityEnum.Betting.Side.Lay && result.Value == UtilityEnum.Resolution.For)
-            {
+        //    }
+        //    if (bet.Side == TradeSide.Lay && result.Value == UtilityEnum.Resolution.For)
+        //    {
 
-                profit = new Profit { Amount = bet.Amount };
-            }
+        //        profit = new Profit(amount : bet.Amount );
+        //    }
 
-            foreach (var observer in observers)
-            {
-                observer.OnNext(profit);
-            }
+        //    foreach (var observer in observers)
+        //    {
+        //        observer.OnNext(profit);
+        //    }
 
 
-            //var single = Predictions.Where(_ => _.ParentKey == price.ParentKey).LastOrDefault();
+        //    //var single = Predictions.Where(_ => _.ParentKey == price.ParentKey).LastOrDefault();
 
-            //var rec = new Bet { Date = price.Time, Key = price.Key, ParentKey = price.ParentKey, Side = price.Value.Side, Value = GetValue(price, single) };
+        //    //var rec = new Bet { Date = price.Time, Key = price.Key, ParentKey = price.ParentKey, Side = price.Value.Side, Value = GetValue(price, single) };
 
-            //foreach (var observer in observers)
-            //{
-            //    observer.OnNext(rec);
-            //}
-        }
+        //    //foreach (var observer in observers)
+        //    //{
+        //    //    observer.OnNext(rec);
+        //    //}
+        //}
 
 
         public void OnCompleted()

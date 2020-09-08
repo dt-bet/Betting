@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using UtilityEnum.Betting;
+using Betting.Enum;
 
 namespace Betting.Model
 {
@@ -15,7 +15,7 @@ namespace Betting.Model
 
         public DateTime Date { get; set; }
 
-        public Side Side { get; set; }
+        public TradeSide Side { get; set; }
 
         public int Value { get; set; }
 

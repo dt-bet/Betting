@@ -1,5 +1,6 @@
 ﻿using Betting.Model;
 using System;
+using Betting.Enum;
 
 namespace Betting.Math
 {
@@ -7,26 +8,23 @@ namespace Betting.Math
     { 
         public static decimal UnitLiability(this Bet bet)
         {
-            if (bet.Side.Equals(UtilityEnum.Betting.Side.Back))
+            if (bet.Side.Equals(TradeSide.Back))
                 return 1;
-            else if (bet.Side.Equals(UtilityEnum.Betting.Side.Lay))
+            else if (bet.Side.Equals(TradeSide.Lay))
                 return ((decimal)bet.Price - 1);
             else
-                throw new Exception("UtilityEnum.Betting.Side not valid");
+                throw new Exception("TradeSide not valid");
         }
-
-
 
         public static decimal UnitProfit(this Bet bet)
         {
-            if (bet.Side.Equals(UtilityEnum.Betting.Side.Back))
+            if (bet.Side.Equals(TradeSide.Back))
                 return ((decimal)bet.Price - 1);
-            else if (bet.Side.Equals(UtilityEnum.Betting.Side.Lay))
+            else if (bet.Side.Equals(TradeSide.Lay))
                 return 1;
             else
-                throw new Exception("UtilityEnum.Betting.Side not valid");
+                throw new Exception("TradeSide not valid");
         }
-
 
         public static NodaMoney.Money GetProfit(this Bet bet)
         {

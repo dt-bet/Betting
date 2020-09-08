@@ -4,14 +4,16 @@ using System.Text;
 
 namespace Betting.Abstract
 {
-    public interface IBetScore
+    public interface IBetScore : UtilityInterface.NonGeneric.Database.IGuid
     {
-        string Source { get; }
-        string Key { get; }
+        Guid StrategyId { get;  }
+
         int AvgAmtOverWager { get; }
+
         int Count { get; }
 
         DateTime Date { get; }
+
         int AvgWager { get; }
 
         double Summarise();

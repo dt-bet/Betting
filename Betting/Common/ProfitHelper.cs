@@ -9,13 +9,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using UtilityEnum;
-using UtilityEnum.Betting;
+using Betting.Enum;
 using UtilityMath;
 using UtilityStruct;
 
 namespace Betting
 {
-    public static class ProfitHelper
+    public static partial class ProfitHelper
     {
 
         public static IEnumerable<(ContractType, decimal)> GetProfit(int diff, (double Home, double Draw, double Away) odds, (double Home, double Draw, double Away) prediction)

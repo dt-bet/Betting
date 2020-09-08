@@ -1,0 +1,116 @@
+﻿<rxui:ReactiveUserControl 
+    x:Class="Betting.View.MainUserControl"
+        x:TypeArguments="viewmodel:ViewModelsViewModel"
+    xmlns:viewmodel="clr-namespace:Betting.ViewModel;assembly=Betting.ViewModel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:rxui="http://reactiveui.net"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+   >
+    <UserControl.Resources>
+        <!--<view:DefaultConverter x:Key="Converter"></view:DefaultConverter>-->
+        <!--Source="{Binding Collection}"-->
+        <CollectionViewSource x:Key="GroupedSamples" >
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="Key"/>
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+
+         <Style x:Key="ContainerStyle" TargetType="{x:Type GroupItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Expander>
+                            <!--<i:Interaction.Behaviors>
+                                <infrastructure:PersistGroupExpandedStateBehavior GroupName="{Binding Name}" />
+                            </i:Interaction.Behaviors>-->
+                            <Expander.Header>
+                                <StackPanel>
+                                    <Separator ></Separator>
+                                    <TextBlock FontSize="15" Text="{Binding Name}" Margin="2,10,2,2"></TextBlock>
+                                </StackPanel>
+                            </Expander.Header>
+                            <ItemsPresenter />
+                            </Expander>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <DockPanel>
+        <ToolBar DockPanel.Dock="Top">
+
+
+            <Button Click="Button_Home_Click" Grid.ColumnSpan="3" x:Name="HomeButton">
+                <materialDesign:PackIcon  Kind="Home" Width="30" Height="30"></materialDesign:PackIcon>
+            </Button>
+        </ToolBar>
+
+        <Grid>
+            <Grid.RowDefinitions>
+
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--<ToolBar Grid.Row="0" >-->
+
+            <!--</ToolBar>-->
+            <ListBox
+          
+            FontSize="14"
+                SelectedIndex="0"
+            FontWeight="DemiBold"
+            x:Name="samplesListBox"
+            
+            ItemsSource="{Binding Source={StaticResource GroupedSamples}}"
+            ScrollViewer.CanContentScroll="False"
+            Margin="0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Mode=OneTime, Path=Value.Key}" Margin="40,10,2,2"></TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <StaticResource ResourceKey="ContainerStyle"></StaticResource>
+                        </GroupStyle.ContainerStyle>
+                        <!--<GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                               
+                            </DataTemplate>
+                    </GroupStyle.HeaderTemplate>-->
+                    </GroupStyle>
+                </ListBox.GroupStyle>
+            </ListBox>
+
+            <GridSplitter
+            Grid.Column="1"
+            Grid.RowSpan="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Stretch"
+            Width="4"/>
+
+            <Grid
+            Grid.Column="2"
+            Grid.RowSpan="2">
+                <rxui:ViewModelViewHost
+          
+                x:Name="sampleViewModelViewHost"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch">
+                    <rxui:ViewModelViewHost.DefaultContent>
+                        <Ellipse Fill="Red" Height="20" Width="20"></Ellipse>
+                    </rxui:ViewModelViewHost.DefaultContent>
+
+                </rxui:ViewModelViewHost>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</rxui:ReactiveUserControl>

@@ -1,5 +1,5 @@
 ﻿
-//using UtilityEnum.Betting;
+//using Betting.Enum;
 //using UtilityStruct;
 
 //namespace Betting.Model
@@ -8,18 +8,18 @@
 //    public struct Odd
 //    {
 
-//        public Odd(PriceType priceType, Probability value)
+//        public Odd(PriceSide PriceSide, Probability value)
 //        {
-//            Type = priceType;
+//            Type = PriceSide;
 //            Value = value;
 //        }
 //        public Odd(Probability value)
 //        {
-//            Type = PriceType.Bid;
+//            Type = PriceSide.Bid;
 //            Value = value;
 //        }
 
-//        public PriceType Type { get; }
+//        public PriceSide Type { get; }
 
 //        public Probability Value { get; }
 
@@ -27,22 +27,22 @@
 //        // User-defined conversion from Digit to double
 //        public static implicit operator double(Odd d)
 //        {
-//            return (d.Type == PriceType.Offer ? -1 : 1) * (double)d.Value.EuropeanOdd;
+//            return (d.Type == PriceSide.Offer ? -1 : 1) * (double)d.Value.EuropeanOdd;
 //        }
 
 //        // User-defined conversion from Digit to double
 //        public static implicit operator decimal(Odd d)
 //        {
-//            return (d.Type == PriceType.Offer ? -1 : 1) * d.Value.EuropeanOdd;
+//            return (d.Type == PriceSide.Offer ? -1 : 1) * d.Value.EuropeanOdd;
 //        }
 //    }
 
 
 //    public static class OddExtension
 //    {
-//        public static bool IsOffer(this Odd odd) => odd.Type == PriceType.Offer;
+//        public static bool IsOffer(this Odd odd) => odd.Type == PriceSide.Offer;
 
-//        public static bool IsBid(this Odd odd) => odd.Type == PriceType.Bid;
+//        public static bool IsBid(this Odd odd) => odd.Type == PriceSide.Bid;
 
 //        /// <summary>
 //        /// Portion of unit bet that is gained i.e the unit bet minus original stake

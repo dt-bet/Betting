@@ -1,15 +1,22 @@
-﻿namespace Betting.Abstract
+﻿using System;
+using Betting.Enum;
+
+namespace Betting.Abstract
 {
-    public interface IPrice
+    public interface IPrice : UtilityInterface.NonGeneric.Database.IGuid
     {
-        System.Guid OddId { get; set; }
+        Guid OddId { get; set; }
 
-        string MarketId { get; set; }
+        Guid MarketId { get; set; }
 
-        string Name { get; set; }
+        //string Name { get; set; }
 
-        long SelectionId { get; set; }
+        Guid SelectionId { get; set; }
+
+        string SelectionName { get; set; }
 
         uint Value { get; set; }
+
+        PriceSide Side { get; set; }
     }
 }

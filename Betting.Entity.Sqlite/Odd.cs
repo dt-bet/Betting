@@ -1,24 +1,27 @@
 ﻿using Betting.Abstract;
+using SQLite;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using UtilityEnum.Betting;
+using Betting.Abstract.DAL;
 
 namespace Betting.Entity.Sqlite
 {
-    public class Odd : IOdd
+    [Dapper.Contrib.Extensions.Table("Odd")]
+    public class Odd : DBEntity, IOdd
     {
-        public Odd(DateTime eventDate, string competition, string competitionId, string marketId, DateTime oddsDate, Guid guid) :
-       this(eventDate, competition, competitionId, marketId, oddsDate)
+        public Odd(Guid guid, DateTime eventDate, Guid competitionId, Guid marketId, DateTime oddsDate) :
+            this(eventDate, competitionId, marketId, oddsDate, guid)
         {
-
-            Guid = guid;
         }
 
-        public Odd(DateTime eventDate, string competition, string competitionId, string marketId, DateTime oddsDate)
+        public Odd(DateTime eventDate, Guid competitionId, Guid marketId, DateTime oddsDate) :
+            this(eventDate, competitionId, marketId, oddsDate, GuidHelper.Merge(marketId, GuidHelper.ToGuid(oddsDate)))
+        {
+        }
+
+        private Odd(DateTime eventDate, Guid competitionId, Guid marketId, DateTime oddsDate, Guid guid) : base(guid)
         {
             EventDate = eventDate;
-            Competition = competition;
             CompetitionId = competitionId;
             MarketId = marketId;
             OddsDate = oddsDate;
@@ -34,22 +37,18 @@ namespace Betting.Entity.Sqlite
 
         public string Competition { get; set; }
 
-        public string CompetitionId { get; set; }
+        [Indexed]
+        public Guid CompetitionId { get; set; }
 
-        public string MarketId { get; set; }
+        [Indexed]
+        public Guid MarketId { get; set; }
 
-        public MarketType MarketType { get; set; }
+        //public MarketType MarketType { get; set; }
 
         public DateTime OddsDate { get; set; }
 
-        [SQLite.Ignore]
+        [Ignore]
         public IReadOnlyCollection<IPrice> Prices { get; set; }
 
-        public Guid Guid { get ; set ; }
-
-        public override string ToString()
-        {
-            return base.ToString();
-        }
     }
 }

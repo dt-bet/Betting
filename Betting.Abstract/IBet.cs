@@ -1,34 +1,27 @@
-﻿using Betting.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using UtilityEnum.Betting;
+﻿using System;
+using Betting.Enum;
 
 namespace Betting.Abstract
 {
-    public interface IBet
+    public interface IBet: UtilityInterface.NonGeneric.Database.IGuid
     {
-        Guid GUID { get; set; }
 
-        string MarketId { get; }
+        Guid MarketId { get; }
+
+        Guid SelectionId { get; }
+
+        Guid StrategyId { get; }
 
         int Amount { get; }
 
         DateTime EventDate { get; }
 
-        uint Price { get; }
+        DateTime PlacedDate { get; }
 
-        long SelectionId { get; }
+        uint Price { get; }
 
         ThreeWayBetType Type { get; }
 
-        DateTime PlacedDate { get; set; }
-    }
-
-    public static class BetUtility
-    {
-        public static string Key(this IBet bet) => bet.MarketId + " " + bet.SelectionId;
-
-        public static dynamic Key2(this IBet bet) => (bet.MarketId , bet.SelectionId, bet.PlacedDate);
+        Guid OddId { get; }
     }
 }

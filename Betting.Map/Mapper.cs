@@ -2,7 +2,7 @@
 using Betting.Model;
 using System;
 using System.Linq;
-using UtilityEnum.Betting;
+using Betting.Enum;
 
 namespace Betting.Map
 {
@@ -45,16 +45,24 @@ namespace Betting.Map
         }
 
 
-        public static Betting.Entity.Sqlite.Price MapToEntity(this Price price, PriceType priceType)
+        public static Betting.Entity.Sqlite.Price MapToEntity(this Price price, PriceSide side)
         {
             var map = _mapper.Map<Price, Betting.Entity.Sqlite.Price>(price);
-            map.Type =  priceType;
+            map.Side =  side;
+            return map;
+
+        }
+     
+        public static Price MapToModel(this Betting.Abstract.IPrice price, PriceSide side)
+        {
+            var map = _mapper.Map<Betting.Abstract.IPrice, Price>(price);
+            map.Side =  side;
             return map;
 
         }
      
 
-        public static Market MapToModel(this Betting.Entity.Sqlite.Market fdm)
+        public static Market MapToEntity(this Betting.Entity.Sqlite.Market fdm)
         {
             return _mapper.Map<Betting.Entity.Sqlite.Market,Market>(fdm);
 
@@ -67,6 +75,14 @@ namespace Betting.Map
 
 
         }
+
+        public static Contract MapToModel(this Betting.Abstract.IContract fdm)
+        {
+            return _mapper.Map<Betting.Abstract.IContract, Contract>(fdm);
+
+
+        }
+
 
         public static Price MapToModel(this Betting.Entity.Sqlite.Price price)
         {

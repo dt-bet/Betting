@@ -2,18 +2,30 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UtilityEnum.Betting;
+using Betting.Enum;
+using Dapper.Contrib.Extensions;
 
 namespace Betting.Entity.Sqlite
 {
+    [Dapper.Contrib.Extensions.Table("Result")]
     [SQLite.Table("Result")]
     public class ThreeWayResult : TwoWayResult, IThreeWayResult, IEquatable<ThreeWayResult>
     {
-        public ThreeWayResult(string marketId,
-            long player1Id, AbsolutePosition player1Status,
-            long player2Id, AbsolutePosition player2Status,
-            long player3Id, AbsolutePosition player3Status
-            ) : base(marketId, player1Id, player1Status, player2Id, player2Status)
+        public ThreeWayResult(Guid marketId,
+            Guid player1Id, AbsolutePosition player1Status,
+            Guid player2Id, AbsolutePosition player2Status,
+            Guid player3Id, AbsolutePosition player3Status
+            ) : base(marketId, marketId, player1Id, player1Status, player2Id, player2Status)
+        {
+            Player3Id = player3Id;
+            Player3Status = player3Status;
+        }
+
+        public ThreeWayResult(Guid guid, Guid marketId,
+    Guid player1Id, AbsolutePosition player1Status,
+    Guid player2Id, AbsolutePosition player2Status,
+    Guid player3Id, AbsolutePosition player3Status
+    ) : base(guid, marketId, player1Id, player1Status, player2Id, player2Status)
         {
             Player3Id = player3Id;
             Player3Status = player3Status;
@@ -23,24 +35,29 @@ namespace Betting.Entity.Sqlite
         {
         }
 
-        public long Player3Id { get; set; }
+        public Guid Player3Id { get; set; }
+
+
+        [SQLite.Indexed]
         public AbsolutePosition Player3Status { get; set; }
 
-        public override long WinnerId
+        [Write(false)]
+        [SQLite.Ignore]
+        public override Guid WinnerId
         {
             get
             {
-                long? ss = (Player1Status == AbsolutePosition.Winner
+                Guid? ss = (Player1Status == AbsolutePosition.Winner
                             && Player2Status == AbsolutePosition.Loser
-                            && Player3Status == AbsolutePosition.Loser ? (long?)Player1Id : null);
+                            && Player3Status == AbsolutePosition.Loser ? (Guid?)Player1Id : null);
 
-                long? ss1 = (Player1Status == AbsolutePosition.Loser
+                Guid? ss1 = (Player1Status == AbsolutePosition.Loser
                             && Player2Status == AbsolutePosition.Winner
-                            && Player3Status == AbsolutePosition.Loser ? (long?)Player2Id : null);
+                            && Player3Status == AbsolutePosition.Loser ? (Guid?)Player2Id : null);
 
-                long? ss2 = (Player1Status == AbsolutePosition.Loser
+                Guid? ss2 = (Player1Status == AbsolutePosition.Loser
                             && Player2Status == AbsolutePosition.Loser
-                            && Player3Status == AbsolutePosition.Winner ? (long?)Player3Id : null);
+                            && Player3Status == AbsolutePosition.Winner ? (Guid?)Player3Id : null);
 
                 var winner = new[] { ss, ss1, ss2 }.SingleOrDefault(a => a.HasValue);
 
@@ -49,8 +66,7 @@ namespace Betting.Entity.Sqlite
 
                 }
 
-                return winner ??
-                    0;
+                return winner ??                    default;
             }
         }
 
