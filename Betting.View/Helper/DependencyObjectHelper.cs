@@ -10,19 +10,19 @@ using System.Windows.Markup.Primitives;
 namespace Betting.View
 {
 
-public static class DependencyObjectHelper
-    {
-        public static IEnumerable<FieldInfo> GetDependencyProperties(this Type type)
-        {
-            var flags = BindingFlags.Static |
-                BindingFlags.FlattenHierarchy |
-                BindingFlags.Public;
+    //public static class DependencyObjectHelper
+    //{
+    //    public static IEnumerable<FieldInfo> GetDependencyProperties(this Type type)
+    //    {
+    //        var flags = BindingFlags.Static |
+    //            BindingFlags.FlattenHierarchy |
+    //            BindingFlags.Public;
 
-            return type.GetFields(flags)
-                                 .Where(f => f.FieldType == typeof(DependencyProperty));
-                                
-        }
+    //        return type.GetFields(flags)
+    //                             .Where(f => f.FieldType == typeof(DependencyProperty));
+
+    //    }
 
 
-    }
+    //}
 }

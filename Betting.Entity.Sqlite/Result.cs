@@ -1,15 +1,23 @@
 ﻿using Betting.Abstract;
+using SQLite;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UtilityEnum.Betting;
+using Betting.Enum;
+using Betting.Abstract.DAL;
 
 namespace Betting.Entity.Sqlite
 {
-    public class Result : IEquatable<Result>, IResult
+    [Dapper.Contrib.Extensions.Table("Result")]
+    public class Result : DBEntity, IResult
     {
-        public Result(string marketId, long winnerId, AbsolutePosition playerStatus)
+        public Result(Guid marketId, Guid winnerId, AbsolutePosition playerStatus) : this(marketId, marketId, winnerId, playerStatus)
+        {
+        }
+
+        public Result(Guid guid, Guid marketId, Guid winnerId, AbsolutePosition playerStatus) : this( marketId, winnerId, playerStatus, guid)
+        {
+        }
+
+        private Result(Guid marketId, Guid winnerId, AbsolutePosition playerStatus, Guid guid) : base(guid)
         {
             MarketId = marketId;
             WinnerId = winnerId;
@@ -20,25 +28,14 @@ namespace Betting.Entity.Sqlite
         {
         }
 
-        public string MarketId { get; set; }
 
-        public long WinnerId { get; set; }
+        [Indexed]
+        public Guid MarketId { get; set; }
+
+        [Indexed]
+        public Guid WinnerId { get; set; }
 
         public AbsolutePosition PlayerStatus { get; set; }
 
-        public bool Equals(Result other)
-        {
-            return other.MarketId == MarketId && other.WinnerId == WinnerId;
-        }
-
-        public override int GetHashCode()
-        {
-            return MarketId.Select(c => (int)c).Aggregate((a, b) => a * b);
-        }
-
-        public override bool Equals(object obj)
-        {
-            return Equals(obj as Result);
-        }
     }
 }

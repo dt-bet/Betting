@@ -22,7 +22,7 @@ namespace Betting.Model
         public  UtilityEnum.Execution Execution { get; set; }
 
         //[NotNull]
-        public UtilityEnum.Betting.Side Side { get; set; }
+        public Enum.TradeSide Side { get; set; }
 
 
         public NodaMoney.Money Commission { get; set; } = 0;
@@ -49,9 +49,9 @@ namespace Betting.Model
 
     public static class BetEx
     {
-        public static bool IsBack(this Bet bet) => bet.Side == UtilityEnum.Betting.Side.Back;
+        public static bool IsBack(this Bet bet) => bet.Side == Enum.TradeSide.Back;
 
-        public static bool IsLay(this Bet bet) => bet.Side == UtilityEnum.Betting.Side.Lay;
+        public static bool IsLay(this Bet bet) => bet.Side == Enum.TradeSide.Lay;
 
     }
 
@@ -81,10 +81,10 @@ namespace Betting.Model
     //{
 
     //    //[Ignore]
-    //    public UtilityEnum.Betting.Side Side
+    //    public TradeSide Side
     //    {
-    //        get { return (UtilityEnum.Betting.Side)Enum.Parse(typeof(UtilityEnum.Betting.Side), Side, true); }
-    //        set { Side = Enum.GetName(typeof(UtilityEnum.Betting.Side), value); }
+    //        get { return (TradeSide)Enum.Parse(typeof(TradeSide), Side, true); }
+    //        set { Side = Enum.GetName(typeof(TradeSide), value); }
     //    }
 
 
@@ -122,7 +122,7 @@ namespace Betting.Model
     //        }
     //        set
     //        {
-    //            Side = ((UtilityEnum.Betting.Side)value).ToString();
+    //            Side = ((TradeSide)value).ToString();
     //        }
     //    }
 

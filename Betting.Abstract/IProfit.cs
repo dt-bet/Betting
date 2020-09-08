@@ -2,22 +2,22 @@
 
 namespace Betting.Abstract
 {
-    public interface IProfit
+    public interface IProfit : UtilityInterface.NonGeneric.Database.IGuid
     {
-        long Amount { get; }
+        int Amount { get; }
 
         Guid BetId { get; }
 
         DateTime EventDate { get; }
 
-        string MarketId { get; }
+        Guid MarketId { get; }
 
         uint Price { get;  }
 
-        long SelectionId { get; }
+        Guid SelectionId { get; }
 
         int Wager { get; }
-        string Key { get; }
+        Guid StrategyId { get; }
 
         // IProfit Build(long amount, Guid betId, DateTime eventDate, string marketId,int price, long selectionId,int wager);
     }

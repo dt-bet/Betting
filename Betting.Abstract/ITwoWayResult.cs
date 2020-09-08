@@ -1,14 +1,15 @@
 ﻿
-using UtilityEnum.Betting;
+using System;
+using Betting.Enum;
+using UtilityInterface.NonGeneric.Database;
 
 namespace Betting.Abstract
 {
-    public interface ITwoWayResult 
+    public interface ITwoWayResult : IGuid
     {
-
-        long Player1Id { get; }
+        Guid Player1Id { get; }
         AbsolutePosition Player1Status { get; }
-        long Player2Id { get; }
+        Guid Player2Id { get; }
         AbsolutePosition Player2Status { get; }
     }
 }

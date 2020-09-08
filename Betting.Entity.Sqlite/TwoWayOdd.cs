@@ -1,24 +1,38 @@
 ﻿using Betting.Abstract;
+using Betting.Abstract.DAL;
+using Betting.Enum;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 
 namespace Betting.Entity.Sqlite
 {
+    [Dapper.Contrib.Extensions.Table("Odd")]
     [SQLite.Table("Odd")]
-    public class TwoWayOdd : IOdd, ITwoWayOdd
+    public class TwoWayOdd : DBEntity, IOdd, ITwoWayOdd
     {
-        public const int Factor = 100;
+        //public const int Factor = 100;
         protected const string Odd = "Odd";
-        protected const string Id = "Id";
+        protected const string Id_ = "Id";
         protected const string Name = "Name";
 
+        public TwoWayOdd(Guid guid, DateTime eventDate, Guid competitionId, Guid marketId, uint player1Odd, uint player2Odd, Guid player1Id, Guid player2Id, string player1Name, string player2Name, DateTime oddsDate) :
+          this(eventDate, competitionId, marketId, player1Odd, player2Odd, player1Id, player2Id, player1Name, player2Name, oddsDate, guid)
+        {
 
-        public TwoWayOdd(DateTime eventDate, string competition, string competitionId, string marketId, uint player1Odd, uint player2Odd, long player1Id, long player2Id, string player1Name, string player2Name, DateTime oddsDate)
+        }
+
+        public TwoWayOdd(DateTime eventDate, Guid competitionId, Guid marketId, uint player1Odd, uint player2Odd, Guid player1Id, Guid player2Id, string player1Name, string player2Name, DateTime oddsDate) :
+                      this(eventDate, competitionId, marketId, player1Odd, player2Odd, player1Id, player2Id, player1Name, player2Name, oddsDate, GuidHelper.Merge(marketId, GuidHelper.ToGuid(oddsDate)))
+        {
+
+        }
+
+        public TwoWayOdd(DateTime eventDate, Guid competitionId, Guid marketId, uint player1Odd, uint player2Odd, Guid player1Id, Guid player2Id, string player1Name, string player2Name, DateTime oddsDate, Guid guid) : base(guid)
         {
             EventDate = eventDate;
-            Competition = competition;
+            //Competition = competition;
             CompetitionId = competitionId;
             MarketId = marketId;
             Player1Odd = player1Odd;
@@ -28,7 +42,6 @@ namespace Betting.Entity.Sqlite
             Player1Name = player1Name;
             Player2Name = player2Name;
             OddsDate = oddsDate;
-            Guid = Guid.NewGuid();
         }
 
 
@@ -41,9 +54,11 @@ namespace Betting.Entity.Sqlite
 
         public string Competition { get; set; }
 
-        public string CompetitionId { get; set; }
+        [Indexed]
+        public Guid CompetitionId { get; set; }
 
-        public string MarketId { get; set; }
+        [Indexed]
+        public Guid MarketId { get; set; }
 
         [Category("1")]
         [Description(Odd)]
@@ -54,15 +69,15 @@ namespace Betting.Entity.Sqlite
         public uint Player2Odd { get; set; }
 
         [Category("1")]
-        [Description(Id)]
-        public long Player1Id { get; set; }
+        [Description(Id_)]
+        public Guid Player1Id { get; set; }
 
         [Category("2")]
-        [Description(Id)]
-        public long Player2Id { get; set; }
+        [Description(Id_)]
+        public Guid Player2Id { get; set; }
 
         [Category("1")]
-        [Description(Id)]
+        [Description(Id_)]
         public string Player1Name { get; set; }
 
         [Category("2")]
@@ -71,32 +86,33 @@ namespace Betting.Entity.Sqlite
 
         public DateTime OddsDate { get; set; }
 
-        [SQLite.Ignore]
-        public Guid Guid { get; set; }
+
 
         //public virtual IReadOnlyCollection<IPrice> Prices => SelectPrices(this).ToArray();
 
-        [SQLite.Ignore]
+        [Ignore]
         public virtual IReadOnlyCollection<IPrice> Prices =>
                   new Price[] {
                new Price(
 
               marketId : MarketId,
-                   name : Player1Name,
+
                    selectionId :Player1Id,
                      value: Player1Odd,
-                     oddId: this.Guid
-               ),
+                     oddId: this.Guid,
+                          priceSide: PriceSide.Offer
+
+               ){              SelectionName = Player1Name},
 
 
                new Price
                (
                     marketId : MarketId,
-                   name :Player2Name,
                    selectionId :Player2Id,
                    value:Player2Odd,
-                   oddId: this.Guid
-               ),
+                   oddId: this.Guid,
+                      priceSide: PriceSide.Offer
+                     ){              SelectionName = Player2Name},
                };
 
 
@@ -118,7 +134,10 @@ namespace Betting.Entity.Sqlite
         //           oddId: twoWayOdd.Guid
         //     );
 
-
+        protected virtual Guid GetGuid()
+        {
+            return GuidHelper.Merge(MarketId, OddsDate.ToGuid());
+        }
 
 
         public override string ToString()

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UtilityEnum.Betting;
+using Betting.Enum;
 using UtilityStruct;
 
 namespace Betting
@@ -40,7 +40,7 @@ namespace Betting
                 Date = single.Time,
                 Key = single.Key,
                 ParentKey = single.ParentKey,
-                Side = single.Value.Type == Odd.PriceType.Bid ? UtilityEnum.Betting.Side.Back : UtilityEnum.Betting.Side.Lay,
+                Side = single.Value.Type == Odd.PriceType.Bid ? TradeSide.Back : TradeSide.Lay,
                 Value = GetValue(single, prediction)
             };
 
@@ -70,7 +70,7 @@ namespace Betting
                     Date = price.Time,
                     Key = price.Key,
                     ParentKey = price.ParentKey,
-                    Side = price.Value.Type == Odd.PriceType.Bid ? UtilityEnum.Betting.Side.Back : UtilityEnum.Betting.Side.Lay,
+                    Side = price.Value.Type == Odd.PriceType.Bid ? TradeSide.Back : TradeSide.Lay,
                     Value = GetValue(price, single)
                 };
 

@@ -1,14 +1,29 @@
 ﻿using Betting.Abstract;
+using Betting.Abstract.DAL;
+using SQLite;
 using System;
+using System.Collections.Generic;
 
 namespace Betting.Entity.Sqlite
 {
-    public class Profit : IProfit
+    [Dapper.Contrib.Extensions.Table("Profit")]
+    public class Profit : DBEntity, IProfit, IEquatable<Profit>
     {
         public const int Factor = 100;
-        public Profit() { }
 
-        public Profit(string marketId, DateTime eventDate, long amount, long selectionId, int wager, uint price, Guid betId)
+
+        public Profit(Guid marketId, DateTime eventDate, int amount, Guid selectionId, int wager, uint price, Guid betId, Guid strategyId):
+            this(marketId,  eventDate,  amount,  selectionId,  wager,  price,  betId,  strategyId, betId)
+        {
+        }
+
+        public Profit(Guid guid, Guid marketId, DateTime eventDate, int amount, Guid selectionId, int wager, uint price, Guid betId, Guid strategyId):
+            this(  marketId,  eventDate,  amount,  selectionId,  wager,  price,  betId,  strategyId, guid)
+        {
+
+        }
+
+        public Profit(Guid marketId, DateTime eventDate, int amount, Guid selectionId, int wager, uint price, Guid betId, Guid strategyId, Guid guid):base(guid)
         {
             MarketId = marketId;
             EventDate = eventDate;
@@ -17,22 +32,68 @@ namespace Betting.Entity.Sqlite
             Wager = wager;
             Price = price;
             BetId = betId;
+            StrategyId = strategyId;
+            Guid = Guid.NewGuid();
         }
 
-        public string MarketId { get; set; }
+        public Profit() { }
 
-        public string Key { get; set; }
+        [Indexed]
+        public Guid MarketId { get; set; }
+
+        [Indexed]
+        public Guid SelectionId { get; set; }
+
+        [Indexed]
+        public Guid BetId { get; set; }
+
+        [Indexed]
+        public Guid StrategyId { get; }
+
+        //public string Key { get; set; }
 
         /// <summary>
         /// N.B This can also be the settled date
         /// </summary>
         public DateTime EventDate { get; set; }
-        public long Amount { get; set; }
-        public long SelectionId { get; set; }
+
+        public int Amount { get; set; }
+
         public int Wager { get; set; }
+
         public uint Price { get; set; }
-        public Guid BetId { get ; set ; }
+   
 
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Profit);
+        }
 
+        public bool Equals(Profit other)
+        {
+            return other != null &&
+                   MarketId == other.MarketId &&
+                   EventDate == other.EventDate &&
+                   Amount == other.Amount &&
+                   SelectionId == other.SelectionId &&
+                   Wager == other.Wager &&
+                   Price == other.Price &&
+                   BetId.Equals(other.BetId);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(MarketId, EventDate, Amount, SelectionId, Wager, Price, BetId);
+        }
+
+        public static bool operator ==(Profit left, Profit right)
+        {
+            return EqualityComparer<Profit>.Default.Equals(left, right);
+        }
+
+        public static bool operator !=(Profit left, Profit right)
+        {
+            return !(left == right);
+        }
     }
 }

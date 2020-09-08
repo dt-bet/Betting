@@ -8,17 +8,17 @@ using System.Windows.Data;
 
 namespace Betting.View
 {
-    public class IsNegativeConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-      
-            return  System.Convert.ToDouble(value)<0;
-        }
+    //public class IsNegativeConverter : IValueConverter
+    //{
+    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return value;
-        }
-    }
+    //        return System.Convert.ToDouble(value) < 0;
+    //    }
+
+    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        return value;
+    //    }
+    //}
 }

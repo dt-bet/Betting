@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using UtilityEnum.Betting;
+using Betting.Enum;
 
 namespace Betting.Model
 {

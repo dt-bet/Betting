@@ -1,10 +1,12 @@
-﻿using UtilityEnum.Betting;
+﻿using System;
+using Betting.Enum;
 
 namespace Betting.Abstract
 {
     public interface IThreeWayResult : ITwoWayResult
     {
-        long Player3Id { get; }
+        Guid Player3Id { get; }
+
         AbsolutePosition Player3Status { get; }
 
     }

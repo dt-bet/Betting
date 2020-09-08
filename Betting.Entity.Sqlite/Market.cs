@@ -2,19 +2,27 @@
 using SQLite;
 using System;
 using System.Collections.Generic;
-using UtilityEnum.Betting;
-
-//using UtilityDAL.Model;
+using Betting.Enum;
+using Betting.Abstract.DAL;
+using Betting.Abstract;
 
 namespace Betting.Entity.Sqlite
 {
+    [Dapper.Contrib.Extensions.Table("Market")]
 
-    public class Market : IEquatable<Market> 
+    public class Market : DBEntity, IMarket
     {
-        public Market(long id, MarketType key, List<Contract>? contracts =null)
+        public Market(MarketType type, List<IContract>? contracts = null):this(type, contracts, Guid.NewGuid())
         {
-            Key = key;
-            Id = id;
+        }
+
+        public Market(Guid guid, MarketType key, List<IContract>? contracts = null):this(key, contracts, guid)
+        {
+        }
+
+        private Market( MarketType key, List<IContract>? contracts, Guid guid) : base(guid)
+        {
+            Type = key;
             Contracts = contracts;
         }
 
@@ -22,34 +30,14 @@ namespace Betting.Entity.Sqlite
         {
         }
 
-        public long Id { get; set; }
 
         [Indexed]
-        public MarketType Key { get; set; }
+        public MarketType Type { get; set; }
 
 
         //[OneToMany(CascadeOperations = CascadeOperation.All)]
         [Ignore]
-        public List<Contract>? Contracts { get; set; }
+        public IReadOnlyCollection<IContract>? Contracts { get; set; }
 
-        #region IEquatable
-
-
-        public bool Equals(Market market) => true;/* this.Key == (market as Market).Key && (this as DbChildRow).Equals(market as DbChildRow);*/
-
-        public override int GetHashCode()
-        {
-            var hashCode = -228512026;
-            hashCode = hashCode * -1521134295 + Key.GetHashCode();
-            hashCode = hashCode * -1521134295;/* + GetHashCode(this as DbChildRow);*/
-            return hashCode;
-        }
-
-        public override bool Equals(object market) => this.Equals(market as Market);
-
-
-        #endregion comparison
     }
-
-
 }
