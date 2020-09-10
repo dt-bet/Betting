@@ -5,6 +5,7 @@
     <UseWPF>true</UseWPF>
     <AssemblyVersion>1.0.3.0</AssemblyVersion>
     <FileVersion>1.0.3.0</FileVersion>
+    <Version>1.0.50</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -13,7 +14,7 @@
     <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
     <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
-    <UpdatePackageVersion>True</UpdatePackageVersion>
+    <UpdatePackageVersion>False</UpdatePackageVersion>
     <PackageVersionSettings>AssemblyVersion.IncrementWithAutoReset.None</PackageVersionSettings>
     <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
     <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
