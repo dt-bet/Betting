@@ -6,71 +6,105 @@
              xmlns:vm="clr-namespace:Betting.ViewModel;assembly=Betting.ViewModel" 
              xmlns:exceed="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:oxy1="http://oxyplot.org/wpf"
+             xmlns:oxy="http://oxyplot.org/wpf"
+             d:DataContext="{d:DesignInstance Type=vm:ProfitChartViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-   
-        <Grid>
-        <Grid.DataContext>
-            <vm:BalanceViewModel/>
-        </Grid.DataContext>
+
+    <Grid>
+
         <DockPanel>
-                <ToolBar DockPanel.Dock="Top">
-                    <Label >Balance</Label>
+            <ToolBar DockPanel.Dock="Top">
+                <Label >Balance</Label>
+                <exceed:IntegerUpDown x:Name="B" Value="5" Minimum="0" UpdateValueOnEnterKey="True" AllowSpin="True" >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="ValueChanged">
+                            <i:InvokeCommandAction
+                                        Command="{Binding Balance}" EventArgsParameterPath="NewValue"
+                                      >
+                            </i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </exceed:IntegerUpDown>
 
-                    <exceed:IntegerUpDown x:Name="B" Value="5">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="ValueChanged">
-                                <i:InvokeCommandAction
-                                        Command="{Binding Balance}"
-                                        CommandParameter="{Binding ElementName=B, Path=Value}">
-                                </i:InvokeCommandAction>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </exceed:IntegerUpDown>
-                    <Label >Fraction</Label>
-                    <exceed:IntegerUpDown x:Name="F" Value="5">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="ValueChanged">
-                                <i:InvokeCommandAction
-                                        Command="{Binding Fraction}"
-                                        CommandParameter="{Binding ElementName=F, Path=Value}">
-                                </i:InvokeCommandAction>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </exceed:IntegerUpDown>
-                    <Label >Win</Label>
-                    <exceed:IntegerUpDown x:Name="W" Value="5">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="ValueChanged">
-                                <i:InvokeCommandAction
-                                        Command="{Binding Win}"
-                                        CommandParameter="{Binding ElementName=W, Path=Value}">
-                                </i:InvokeCommandAction>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </exceed:IntegerUpDown>
-                    <Label >Sigma</Label>
-                    <exceed:IntegerUpDown x:Name="S" Value="5">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="ValueChanged">
-                                <i:InvokeCommandAction
-                                        Command="{Binding Sigma}"
-                                        CommandParameter="{Binding ElementName=S, Path=Value}">
-                                </i:InvokeCommandAction>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </exceed:IntegerUpDown>
-                </ToolBar>
-                <oxy1:Plot >
-                    <oxy1:Plot.Axes>
-                        <oxy1:LinearAxis Position="Bottom"/>
-                        <oxy1:LinearAxis Position="Left"/>
-                    </oxy1:Plot.Axes>
-                    <oxy1:LineSeries ItemsSource="{Binding DataPoints }" Title="Values"  StrokeThickness="2" LineStyle="Solid"  MarkerSize="2" MarkerFill="Green"  MarkerType="Circle"  Color="Pink" />
-                </oxy1:Plot>
-            </DockPanel>
+                <Label >Fraction</Label>
+                <exceed:IntegerUpDown x:Name="F" Value="5" Minimum="0" ValueChanged="F_ValueChanged">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="ValueChanged">
+                            <i:InvokeCommandAction
+                                Command="{Binding Fraction}"
+                                EventArgsParameterPath="NewValue"                                      >
+                            </i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </exceed:IntegerUpDown>
 
-        </Grid>
+                <Label >Win</Label>
+                <exceed:IntegerUpDown x:Name="W" Value="5" >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="ValueChanged">
+                            <i:InvokeCommandAction
+                                Command="{Binding Win}"
+                                EventArgsParameterPath="NewValue"                                       >
+                            </i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </exceed:IntegerUpDown>
+
+                <Label >Sigma</Label>
+                <exceed:IntegerUpDown x:Name="S" Value="5" Minimum="0">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="ValueChanged">
+                            <i:InvokeCommandAction
+                                Command="{Binding Sigma}"
+                                EventArgsParameterPath="NewValue"                                      >
+                            </i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </exceed:IntegerUpDown>
+
+         
+                <CheckBox
+            Content="Remove Previous"
+            HorizontalAlignment="Left"
+            Margin="10,0,0,0"
+            VerticalAlignment="Top"
+           >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Checked">
+                            <i:InvokeCommandAction
+                            Command="{Binding RemovePrevious}"
+                            EventArgsParameterPath="Source"
+                                      >
+                            </i:InvokeCommandAction>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="Unchecked">
+                            <i:InvokeCommandAction
+                            Command="{Binding RemovePrevious}"
+                            EventArgsParameterPath="Source"
+                                      >
+                            </i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </CheckBox>
+
+
+                <exceed:IntegerUpDown x:Name="R" Value="5" Minimum="0" Margin="20,0">
+                </exceed:IntegerUpDown>
+                <Button Command="{Binding Run}" CommandParameter="{Binding ElementName=R, Path=Value}">
+                    run
+                </Button>
+            </ToolBar>
+            <!--<oxy:Plot >
+                <oxy:Plot.Axes>
+                    <oxy:LinearAxis Position="Bottom"/>
+                    <oxy:LinearAxis Position="Left"/>
+                </oxy:Plot.Axes>
+                <oxy:LineSeries Title="Values"   />
+            </oxy:Plot>-->
+            <oxy:PlotView x:Name="PlotView1"> </oxy:PlotView>
+        </DockPanel>
+
+    </Grid>
 
 </UserControl>

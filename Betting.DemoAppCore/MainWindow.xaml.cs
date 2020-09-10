@@ -11,6 +11,5 @@ namespace Betting.DemoWpfApp
         {
             InitializeComponent();
         }
-
     }
 }
