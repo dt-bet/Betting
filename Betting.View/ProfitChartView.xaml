@@ -20,15 +20,15 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="ValueChanged">
                             <i:InvokeCommandAction
-                                        Command="{Binding Balance}" EventArgsParameterPath="NewValue"
-                                      >
+                                        Command="{Binding Balance}" 
+                                EventArgsParameterPath="NewValue"                                      >
                             </i:InvokeCommandAction>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </exceed:IntegerUpDown>
 
                 <Label >Fraction</Label>
-                <exceed:IntegerUpDown x:Name="F" Value="5" Minimum="0" ValueChanged="F_ValueChanged">
+                <exceed:IntegerUpDown x:Name="F" Value="5" Minimum="0">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="ValueChanged">
                             <i:InvokeCommandAction
@@ -95,13 +95,7 @@
                     run
                 </Button>
             </ToolBar>
-            <!--<oxy:Plot >
-                <oxy:Plot.Axes>
-                    <oxy:LinearAxis Position="Bottom"/>
-                    <oxy:LinearAxis Position="Left"/>
-                </oxy:Plot.Axes>
-                <oxy:LineSeries Title="Values"   />
-            </oxy:Plot>-->
+   
             <oxy:PlotView x:Name="PlotView1"> </oxy:PlotView>
         </DockPanel>
 

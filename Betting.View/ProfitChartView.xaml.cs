@@ -98,9 +98,5 @@ namespace Betting.View
 
         }
 
-        private void F_ValueChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<object> e)
-        {
-
-        }
     }
 }
