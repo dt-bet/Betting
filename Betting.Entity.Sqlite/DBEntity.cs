@@ -6,7 +6,7 @@ using UtilityInterface.NonGeneric.Database;
 
 namespace Betting.Abstract.DAL
 {
-    public abstract class DBEntity : IId, IGuid, IEquatable<DBEntity>
+    public abstract class DBEntity : IDbEntity
     {
         protected DBEntity()
         {
@@ -28,16 +28,19 @@ namespace Betting.Abstract.DAL
         [Unique]
         public Guid Guid { get; set; }
 
+        public DateTime AddedTime { get; set; }
+
         public override bool Equals(object obj)
         {
             return Equals(obj as DBEntity);
         }
 
-        public bool Equals(DBEntity other)
+        public bool Equals(IDbEntity other)
         {
             return other != null &&
-                   Guid.Equals(other.Guid);
+                   Guid.Equals((other as IGuid).Guid);
         }
+
 
         public override int GetHashCode()
         {
