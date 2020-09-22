@@ -6,7 +6,7 @@ using Betting.Enum;
 namespace Betting.Entity.Sqlite
 {
     [Dapper.Contrib.Extensions.Table("Price")]
-    public class Price : Abstract.DAL.DBEntity, IPrice
+    public class Price : DBEntity, IPrice
     {
 
         public Price(Guid selectionId,  Guid marketId, Guid oddId, uint value, PriceSide priceSide) :this(selectionId, marketId, oddId, value, priceSide, GuidHelper.Merge(selectionId, oddId))

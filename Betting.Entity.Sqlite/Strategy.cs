@@ -1,6 +1,5 @@
 ﻿using SQLite;
 using System;
-using Betting.Abstract.DAL;
 
 namespace Betting.Entity.Sqlite
 {

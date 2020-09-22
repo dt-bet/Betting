@@ -4,20 +4,20 @@ using System.Collections.Generic;
 using System.Text;
 using UtilityInterface.NonGeneric.Database;
 
-namespace Betting.Abstract.DAL
+namespace Betting.Entity.Sqlite
 {
-    public abstract class DBEntity : IDbEntity
+    public class DBEntity : IDbEntity
     {
-        protected DBEntity()
+        public DBEntity()
         {
         }
 
-        protected DBEntity(Guid guid)
+        public DBEntity(Guid guid)
         {
             Guid = guid;
         }
 
-        protected DBEntity(long id, Guid guid) : this(guid)
+        public DBEntity(long id, Guid guid) : this(guid)
         {
             Id = id;
         }

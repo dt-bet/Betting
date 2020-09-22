@@ -1,5 +1,4 @@
 ﻿using Betting.Abstract;
-using Betting.Abstract.DAL;
 using SQLite;
 using System;
 using System.Collections.Generic;

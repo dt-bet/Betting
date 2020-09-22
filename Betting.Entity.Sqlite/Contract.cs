@@ -1,7 +1,6 @@
 ﻿using SQLite;
 using System.Collections.Generic;
 using Betting.Enum;
-using Betting.Abstract.DAL;
 using Betting.Abstract;
 using System;
 

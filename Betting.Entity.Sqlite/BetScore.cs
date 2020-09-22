@@ -1,5 +1,4 @@
 ﻿using Betting.Abstract;
-using Betting.Abstract.DAL;
 using System;
 using System.Collections.Generic;
 using System.Text;

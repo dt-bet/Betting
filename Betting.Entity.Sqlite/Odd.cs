@@ -2,7 +2,6 @@
 using SQLite;
 using System;
 using System.Collections.Generic;
-using Betting.Abstract.DAL;
 
 namespace Betting.Entity.Sqlite
 {

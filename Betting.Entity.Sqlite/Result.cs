@@ -2,7 +2,6 @@
 using SQLite;
 using System;
 using Betting.Enum;
-using Betting.Abstract.DAL;
 
 namespace Betting.Entity.Sqlite
 {

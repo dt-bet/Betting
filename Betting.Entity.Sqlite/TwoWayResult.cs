@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using Betting.Enum;
 using SQLite;
-using Betting.Abstract.DAL;
 using Dapper.Contrib.Extensions;
 
 namespace Betting.Entity.Sqlite

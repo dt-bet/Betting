@@ -1,7 +1,4 @@
-﻿using DynamicData;
-using MathNet.Numerics;
-using MathNet.Numerics.Distributions;
-using OxyPlot;
+﻿using OxyPlot;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -12,7 +9,6 @@ using System.Reactive.Threading.Tasks;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using UtilityHelper.NonGeneric;
 
 namespace Betting.ViewModel
 {
