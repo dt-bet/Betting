@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>1.2.5</Version>
+    <Version>1.2.6</Version>
     <AssemblyVersion>1.2.6.0</AssemblyVersion>
     <FileVersion>1.2.6.0</FileVersion>
   </PropertyGroup>
@@ -35,9 +35,6 @@
   <ItemGroup>
     <PackageReference Include="sqlite-net-base" Version="1.6.292" />
   </ItemGroup>
-
-
-
 
   <!-- Only packs project if Configuration set to Release-->
    <Target Name="CustomPack" AfterTargets="build" Condition="'$(Configuration)'=='Release'">

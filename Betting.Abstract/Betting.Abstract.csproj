@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.28</Version>
+    <Version>1.0.29</Version>
     <AssemblyVersion>1.0.31.0</AssemblyVersion>
     <FileVersion>1.0.32.0</FileVersion>
   </PropertyGroup>
@@ -33,17 +33,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="phirSOFT.LazyDictionary" Version="0.2.3" />
     <PackageReference Include="Splat" Version="9.5.6" />
-    <PackageReference Include="sqlite-net-base" Version="1.6.292" />
-    <PackageReference Include="UtilityHelper" Version="2.1.4-alpha" />
-    <PackageReference Include="UtilityInterface" Version="4.0.1-alpha" />
+    <PackageReference Include="UtilityInterface" Version="4.0.4" />
   </ItemGroup>
 
 
 
   <ItemGroup>
     <ProjectReference Include="..\Betting.Enum\Betting.Enum.csproj" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <Reference Include="UtilityDAL.Sqlite">
+      <HintPath>UtilityDAL.Sqlite.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   
