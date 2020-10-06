@@ -15,9 +15,6 @@ namespace Betting.View
                                                                                              select (DateTime)a.EventArgs.NewValue;
 
 
-      
-
-
         public static IObservable<object> ToChanges(this Selector selector) =>
             from change in (from a in Observable.FromEventPattern<SelectionChangedEventHandler, SelectionChangedEventArgs>(a => selector.SelectionChanged += a, a => selector.SelectionChanged -= a)
              select a.EventArgs.AddedItems.Cast<object>().SingleOrDefault())
