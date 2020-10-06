@@ -4,6 +4,7 @@ using SQLite;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 namespace Betting.Entity.Sqlite
 {
@@ -11,6 +12,7 @@ namespace Betting.Entity.Sqlite
     [SQLite.Table("Odd")]
     public class TwoWayOdd : DBEntity, IOdd, ITwoWayOdd
     {
+        const int PriceCount = 2;
         //public const int Factor = 100;
         protected const string Odd = "Odd";
         protected const string Id_ = "Id";
@@ -43,6 +45,34 @@ namespace Betting.Entity.Sqlite
             OddsDate = oddsDate;
         }
 
+
+
+        public TwoWayOdd(IOdd odd) : base(odd.Guid)
+        {
+
+            if (odd.Prices.Count != PriceCount)
+            {
+                throw new Exception($"Error creating {nameof(TwoWayOdd)} since {nameof(odd)} parameter contain {odd.Prices.Count}, not {PriceCount}.");
+            }
+
+            var prices = odd.Prices.ToArray();
+
+            EventDate = odd.EventDate;
+            //Competition = competition;
+            CompetitionId = odd.CompetitionId;
+            MarketId = odd.MarketId;
+            Player1Odd = prices[0].Value;
+            Player2Odd = prices[1].Value;
+            Player1Id = prices[0].SelectionId;
+            Player2Id = prices[1].SelectionId;
+            Player1Name = prices[0].SelectionName;
+            Player2Name = prices[1].SelectionName;
+            OddsDate = odd.OddsDate;
+        }
+
+        protected TwoWayOdd(Guid guid) : base(guid)
+        {
+        }
 
 #warning Do not use (for sqlite only)
         public TwoWayOdd()
@@ -99,7 +129,7 @@ namespace Betting.Entity.Sqlite
                    selectionId :Player1Id,
                      value: Player1Odd,
                      oddId: this.Guid,
-                          priceSide: PriceSide.Offer
+                          priceSide: PriceSide.Bid
 
                ){              SelectionName = Player1Name},
 
@@ -110,10 +140,15 @@ namespace Betting.Entity.Sqlite
                    selectionId :Player2Id,
                    value:Player2Odd,
                    oddId: this.Guid,
-                      priceSide: PriceSide.Offer
+                      priceSide: PriceSide.Bid
                      ){              SelectionName = Player2Name},
                };
 
+
+        public static explicit operator TwoWayOdd(Odd odd)
+        {
+            return new TwoWayOdd(odd);
+        }
 
         //protected static IEnumerable<IPrice> SelectPrices(TwoWayOdd twoWayOdd)
         //=>
