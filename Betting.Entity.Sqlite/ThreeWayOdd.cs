@@ -37,7 +37,7 @@ namespace Betting.Entity.Sqlite
             }
 
             var prices = odd.Prices.ToArray();
-
+            Competition = odd.Competition;
             EventDate = odd.EventDate;
             CompetitionId = odd.CompetitionId;
             MarketId = odd.MarketId;
@@ -131,7 +131,10 @@ namespace Betting.Entity.Sqlite
                 odd.Player1Name,
                 odd.Player2Name,
                 odd.Player3Name,
-                odd.OddsDate);
+                odd.OddsDate)
+            {
+                Competition = odd.Competition
+            };
         }
     }
 }

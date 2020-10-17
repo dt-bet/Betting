@@ -58,7 +58,7 @@ namespace Betting.Entity.Sqlite
             var prices = odd.Prices.ToArray();
 
             EventDate = odd.EventDate;
-            //Competition = competition;
+            Competition = odd.Competition;
             CompetitionId = odd.CompetitionId;
             MarketId = odd.MarketId;
             Player1Odd = prices[0].Value;
@@ -68,6 +68,7 @@ namespace Betting.Entity.Sqlite
             Player1Name = prices[0].SelectionName;
             Player2Name = prices[1].SelectionName;
             OddsDate = odd.OddsDate;
+           
         }
 
         protected TwoWayOdd(Guid guid) : base(guid)
