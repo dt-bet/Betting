@@ -1,11 +1,8 @@
 ﻿using Betting.Abstract;
 using Betting.Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Betting.Enum;
 
 namespace Betting.Service
 {
@@ -36,7 +33,7 @@ namespace Betting.Service
                 KeyValuePair.Create(a.Key, Task.Run(async () =>
                 {
                     var vb = await a.Value.Group().ToArrayAsync().AsTask();
-                    return vb.SelectMany(kpo => ProfitHelper.JoinWithOdds(kpo.profits, kpo.odds, kpo.key).ToArray()).ToArray();
+                    return vb.SelectMany(kpo => ProfitHelper.JoinWithOdds(kpo.Profits, kpo.Odds, kpo.Key).ToArray()).ToArray();
                 }));
         }
 
