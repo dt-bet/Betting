@@ -5,30 +5,30 @@ using System.Collections.Generic;
 
 namespace Betting.Entity.Sqlite
 {
-    [Dapper.Contrib.Extensions.Table("Odd")]
-    public class Odd : DBEntity, IOdd
+    [Dapper.Contrib.Extensions.Table("Prediction")]
+    public class Prediction : DBEntity, IPrediction
     {
-        public Odd(Guid guid, DateTime eventDate, Guid competitionId, Guid marketId, DateTime oddsDate) :
+        public Prediction(Guid guid, DateTime eventDate, Guid competitionId, Guid marketId, DateTime oddsDate) :
             this(eventDate, competitionId, marketId, oddsDate, guid)
         {
         }
 
-        public Odd(DateTime eventDate, Guid competitionId, Guid marketId, DateTime oddsDate) :
+        public Prediction(DateTime eventDate, Guid competitionId, Guid marketId, DateTime oddsDate) :
             this(eventDate, competitionId, marketId, oddsDate, GuidHelper.Merge(marketId, GuidHelper.ToGuid(oddsDate)))
         {
         }
 
-        private Odd(DateTime eventDate, Guid competitionId, Guid marketId, DateTime oddsDate, Guid guid) : base(guid)
+        private Prediction(DateTime eventDate, Guid competitionId, Guid marketId, DateTime predictionDate, Guid guid) : base(guid)
         {
             EventDate = eventDate;
             CompetitionId = competitionId;
             MarketId = marketId;
-            PredictionDate = oddsDate;
+            PredictionDate = predictionDate;
             Guid = Guid.NewGuid();
         }
 
 #warning This constructor is for sqlite
-        public Odd()
+        public Prediction()
         {
         }
 
@@ -42,12 +42,10 @@ namespace Betting.Entity.Sqlite
         [Indexed]
         public Guid MarketId { get; set; }
 
-        //public MarketType MarketType { get; set; }
-
         public DateTime PredictionDate { get; set; }
 
         [Ignore]
-        public IReadOnlyCollection<IPrice> Prices { get; set; }
+        public IReadOnlyCollection<IEstimate> Estimates { get; set; }
 
     }
 }

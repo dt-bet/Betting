@@ -30,7 +30,7 @@ namespace Betting.Faker
                       .RuleFor(a => a.Guid, f => f.Random.Guid())
                       .RuleFor(a => a.Id, f => f.IndexGlobal)
                       .RuleFor(a => a.MarketId, f => f.Random.Guid())
-                      .RuleFor(a => a.OddsDate, f => DateTime.UnixEpoch + TimeSpan.FromDays(f.IndexGlobal - f.Random.Number(0, 14)))
+                      .RuleFor(a => a.PredictionDate, f => DateTime.UnixEpoch + TimeSpan.FromDays(f.IndexGlobal - f.Random.Number(0, 14)))
                       .RuleFor(a => a.Prices, f => FakerPrice.Generate(3));
 
         public static Faker<Strategy> FakerStrategy => new Faker<Strategy>()

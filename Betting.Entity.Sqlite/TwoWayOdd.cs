@@ -42,7 +42,7 @@ namespace Betting.Entity.Sqlite
             Player2Id = player2Id;
             Player1Name = player1Name;
             Player2Name = player2Name;
-            OddsDate = oddsDate;
+            PredictionDate = oddsDate;
         }
 
 
@@ -67,7 +67,7 @@ namespace Betting.Entity.Sqlite
             Player2Id = prices[1].SelectionId;
             Player1Name = prices[0].SelectionName;
             Player2Name = prices[1].SelectionName;
-            OddsDate = odd.OddsDate;
+            PredictionDate = odd.PredictionDate;
            
         }
 
@@ -114,7 +114,7 @@ namespace Betting.Entity.Sqlite
         [Description(Name)]
         public string Player2Name { get; set; }
 
-        public DateTime OddsDate { get; set; }
+        public DateTime PredictionDate { get; set; }
 
 
 
@@ -171,13 +171,13 @@ namespace Betting.Entity.Sqlite
 
         protected virtual Guid GetGuid()
         {
-            return GuidHelper.Merge(MarketId, OddsDate.ToGuid());
+            return GuidHelper.Merge(MarketId, PredictionDate.ToGuid());
         }
 
 
         public override string ToString()
         {
-            return $"event date: {EventDate} marketId: {MarketId} odds date: {OddsDate}";
+            return $"event date: {EventDate} marketId: {MarketId} odds date: {PredictionDate}";
         }
     }
 }

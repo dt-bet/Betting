@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Betting.Abstract
 {
-    public interface IOdd : UtilityInterface.NonGeneric.Database.IGuid
+    public interface IPrediction : UtilityInterface.NonGeneric.Database.IGuid
     {
         Guid MarketId { get; }
 
@@ -16,7 +16,7 @@ namespace Betting.Abstract
 
         DateTime PredictionDate { get; }
 
-        IReadOnlyCollection<IPrice> Prices { get;  }
+        IReadOnlyCollection<IEstimate> Estimates { get;  }
 
     }
 }

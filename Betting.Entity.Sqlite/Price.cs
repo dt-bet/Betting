@@ -54,9 +54,9 @@ namespace Betting.Entity.Sqlite
 
     public static class PriceHelper
     {
-        public static Price WithValue(this IPrice price, uint value)
+        public static Price WithValue(this IEstimate estimation, uint value)
         {
-            return new Price(price.SelectionId, price.MarketId, price.OddId, value, price.Side) { SelectionName = price.SelectionName };
+            return new Price(estimation.SelectionId, estimation.MarketId, estimation.PredictionId, value, estimation.Side) { SelectionName = estimation.SelectionName };
 
         }
     }
