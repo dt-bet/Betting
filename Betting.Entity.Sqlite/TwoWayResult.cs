@@ -62,9 +62,9 @@ namespace Betting.Entity.Sqlite
         {
             get
             {
-                Guid? ss = (Player2Status == AbsolutePosition.Loser && Player1Status == AbsolutePosition.Winner ? (Guid?)Player2Id : null);
+                Guid? ss = (Player2Status == AbsolutePosition.Lose && Player1Status == AbsolutePosition.Win ? (Guid?)Player2Id : null);
 
-                Guid? winner = Player1Status == AbsolutePosition.Winner && Player2Status == AbsolutePosition.Loser ?
+                Guid? winner = Player1Status == AbsolutePosition.Win && Player2Status == AbsolutePosition.Lose ?
                     Player1Id : ss;
                 return winner ?? default;
             }

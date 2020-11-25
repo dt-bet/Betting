@@ -7,5 +7,6 @@ namespace Betting.Abstract
     {
         Guid Player3Id { get; }
         uint Player3Odd { get; }
+        string Player3Name { get; set; }
     }
 }

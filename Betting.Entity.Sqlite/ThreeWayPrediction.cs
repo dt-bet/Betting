@@ -14,14 +14,14 @@ namespace Betting.Entity.Sqlite
     {
         private const int EstimationCount = 3;
 
-        public ThreeWayPrediction(DateTime eventDate, Guid competitionId, Guid marketId, uint player1Prediction, uint player2Prediction, uint player3Prediction, Guid player1Id, Guid player2Id, Guid player3Id, string player1Name, string player2Name, string player3Name, DateTime PredictionsDate)
-        : this(GuidHelper.Merge(marketId, GuidHelper.ToGuid(PredictionsDate)), eventDate, competitionId, marketId, player1Prediction, player2Prediction, player3Prediction, player1Id, player2Id, player3Id, player1Name, player2Name, player3Name, PredictionsDate)
+        public ThreeWayPrediction(DateTime eventDate, Guid competitionId, Guid marketId, Guid strategyId, uint player1Prediction, uint player2Prediction, uint player3Prediction, Guid player1Id, Guid player2Id, Guid player3Id, string player1Name, string player2Name, string player3Name, DateTime PredictionsDate)
+        : this(GuidHelper.Merge(marketId, GuidHelper.ToGuid(PredictionsDate)), eventDate, competitionId, marketId, strategyId, player1Prediction, player2Prediction, player3Prediction, player1Id, player2Id, player3Id, player1Name, player2Name, player3Name, PredictionsDate)
         {
 
         }
 
-        public ThreeWayPrediction(Guid guid, DateTime eventDate, Guid competitionId, Guid marketId, uint player1Prediction, uint player2Prediction, uint player3Prediction, Guid player1Id, Guid player2Id, Guid player3Id, string player1Name, string player2Name, string player3Name, DateTime PredictionsDate)
-        : base(guid, eventDate, competitionId, marketId, player1Prediction, player2Prediction, player1Id, player2Id, player1Name, player2Name, PredictionsDate)
+        public ThreeWayPrediction(Guid guid, DateTime eventDate, Guid competitionId, Guid marketId, Guid strategyId, uint player1Prediction, uint player2Prediction, uint player3Prediction, Guid player1Id, Guid player2Id, Guid player3Id, string player1Name, string player2Name, string player3Name, DateTime PredictionsDate)
+        : base(guid, eventDate, competitionId, marketId, strategyId, player1Prediction, player2Prediction, player1Id, player2Id, player1Name, player2Name, PredictionsDate)
         {
             Player3Prediction = player3Prediction;
             Player3Id = player3Id;
@@ -116,24 +116,25 @@ namespace Betting.Entity.Sqlite
 
     public static class ThreeWayPredictionHelper
     {
-        public static ThreeWayPrediction WithEventDate(this ThreeWayPrediction Prediction, DateTime date)
+        public static ThreeWayPrediction WithEventDate(this ThreeWayPrediction prediction, DateTime date)
         {
             return new ThreeWayPrediction(
                 date,
-                Prediction.CompetitionId,
-                Prediction.MarketId,
-                Prediction.Player1Prediction,
-                Prediction.Player2Prediction,
-                Prediction.Player3Prediction,
-                Prediction.Player1Id,
-                Prediction.Player2Id,
-                Prediction.Player3Id,
-                Prediction.Player1Name,
-                Prediction.Player2Name,
-                Prediction.Player3Name,
-                Prediction.PredictionDate)
+                prediction.CompetitionId,
+                prediction.MarketId,
+                prediction.StrategyId,
+                prediction.Player1Prediction,
+                prediction.Player2Prediction,
+                prediction.Player3Prediction,
+                prediction.Player1Id,
+                prediction.Player2Id,
+                prediction.Player3Id,
+                prediction.Player1Name,
+                prediction.Player2Name,
+                prediction.Player3Name,
+                prediction.PredictionDate)
             {
-                Competition = Prediction.Competition
+                Competition = prediction.Competition
             };
         }
     }

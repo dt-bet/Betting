@@ -47,17 +47,17 @@ namespace Betting.Entity.Sqlite
         {
             get
             {
-                Guid? ss = (Player1Status == AbsolutePosition.Winner
-                            && Player2Status == AbsolutePosition.Loser
-                            && Player3Status == AbsolutePosition.Loser ? (Guid?)Player1Id : null);
+                Guid? ss = (Player1Status == AbsolutePosition.Win
+                            && Player2Status == AbsolutePosition.Lose
+                            && Player3Status == AbsolutePosition.Lose ? (Guid?)Player1Id : null);
 
-                Guid? ss1 = (Player1Status == AbsolutePosition.Loser
-                            && Player2Status == AbsolutePosition.Winner
-                            && Player3Status == AbsolutePosition.Loser ? (Guid?)Player2Id : null);
+                Guid? ss1 = (Player1Status == AbsolutePosition.Lose
+                            && Player2Status == AbsolutePosition.Win
+                            && Player3Status == AbsolutePosition.Lose ? (Guid?)Player2Id : null);
 
-                Guid? ss2 = (Player1Status == AbsolutePosition.Loser
-                            && Player2Status == AbsolutePosition.Loser
-                            && Player3Status == AbsolutePosition.Winner ? (Guid?)Player3Id : null);
+                Guid? ss2 = (Player1Status == AbsolutePosition.Lose
+                            && Player2Status == AbsolutePosition.Lose
+                            && Player3Status == AbsolutePosition.Win ? (Guid?)Player3Id : null);
 
                 var winner = new[] { ss, ss1, ss2 }.SingleOrDefault(a => a.HasValue);
 

@@ -9,33 +9,32 @@ using System.Linq;
 namespace Betting.Entity.Sqlite
 {
     [Dapper.Contrib.Extensions.Table("Prediction")]
-    [SQLite.Table("Prediction")]
+    [Table("Prediction")]
     public class TwoWayPrediction : DBEntity, IPrediction, ITwoWayPrediction
     {
         const int EstimationCount = 2;
-        //public const int Factor = 100;
         protected const string Prediction = "Prediction";
         protected const string Id_ = "Id";
         protected const string Name = "Name";
 
-        public TwoWayPrediction(Guid guid, DateTime eventDate, Guid competitionId, Guid marketId, uint player1Prediction, uint player2Prediction, Guid player1Id, Guid player2Id, string player1Name, string player2Name, DateTime predictionDate) :
-          this(eventDate, competitionId, marketId, player1Prediction, player2Prediction, player1Id, player2Id, player1Name, player2Name, predictionDate, guid)
+        public TwoWayPrediction(Guid guid, DateTime eventDate, Guid competitionId, Guid marketId, Guid strategyId, uint player1Prediction, uint player2Prediction, Guid player1Id, Guid player2Id, string player1Name, string player2Name, DateTime predictionDate) :
+          this(eventDate, competitionId, marketId, strategyId, player1Prediction, player2Prediction, player1Id, player2Id, player1Name, player2Name, predictionDate, guid)
         {
 
         }
 
-        public TwoWayPrediction(DateTime eventDate, Guid competitionId, Guid marketId, uint player1Prediction, uint player2Prediction, Guid player1Id, Guid player2Id, string player1Name, string player2Name, DateTime predictionDate) :
-                      this(eventDate, competitionId, marketId, player1Prediction, player2Prediction, player1Id, player2Id, player1Name, player2Name, predictionDate, GuidHelper.Merge(marketId, GuidHelper.ToGuid(predictionDate)))
+        public TwoWayPrediction(DateTime eventDate, Guid competitionId, Guid marketId, Guid strategyId, uint player1Prediction, uint player2Prediction, Guid player1Id, Guid player2Id, string player1Name, string player2Name, DateTime predictionDate) :
+                      this(eventDate, competitionId, marketId, strategyId, player1Prediction, player2Prediction, player1Id, player2Id, player1Name, player2Name, predictionDate, GuidHelper.Merge(marketId, GuidHelper.ToGuid(predictionDate)))
         {
 
         }
 
-        public TwoWayPrediction(DateTime eventDate, Guid competitionId, Guid marketId, uint player1Prediction, uint player2Prediction, Guid player1Id, Guid player2Id, string player1Name, string player2Name, DateTime predictionDate, Guid guid) : base(guid)
+        public TwoWayPrediction(DateTime eventDate, Guid competitionId, Guid marketId, Guid strategyId, uint player1Prediction, uint player2Prediction, Guid player1Id, Guid player2Id, string player1Name, string player2Name, DateTime predictionDate, Guid guid) : base(guid)
         {
             EventDate = eventDate;
-            //Competition = competition;
             CompetitionId = competitionId;
             MarketId = marketId;
+            StrategyId = strategyId;
             Player1Prediction = player1Prediction;
             Player2Prediction = player2Prediction;
             Player1Id = player1Id;
@@ -43,6 +42,7 @@ namespace Betting.Entity.Sqlite
             Player1Name = player1Name;
             Player2Name = player2Name;
             PredictionDate = predictionDate;
+            Guid = guid;
         }
 
 
@@ -83,12 +83,15 @@ namespace Betting.Entity.Sqlite
         public DateTime EventDate { get; set; }
 
         public string Competition { get; set; }
-
+        
         [Indexed]
         public Guid CompetitionId { get; set; }
 
         [Indexed]
         public Guid MarketId { get; set; }
+
+        [Indexed]
+        public Guid StrategyId { get; set; }
 
         [Category("1")]
         [Description(Prediction)]
@@ -115,7 +118,6 @@ namespace Betting.Entity.Sqlite
         public string Player2Name { get; set; }
 
         public DateTime PredictionDate { get; set; }
-
 
 
         //public virtual IReadOnlyCollection<IEstimation> Estimations => SelectEstimations(this).ToArray();

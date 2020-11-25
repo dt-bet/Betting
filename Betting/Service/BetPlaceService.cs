@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Betting
 {
-    public class BetPlacer
+    public class BetPlaceService
     {
 
 

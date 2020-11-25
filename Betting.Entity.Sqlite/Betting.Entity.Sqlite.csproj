@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyVersion>2.2.43.0</AssemblyVersion>
     <FileVersion>2.2.43.0</FileVersion>
-    <Version>2.2.56</Version>
+    <Version>2.2.68</Version>
     <Product>Betting.Entity.SQLite</Product>
     <PackageId>Betting.Entity.SQLite</PackageId>
     <AssemblyName>Betting.Entity.Sqlite</AssemblyName>

@@ -50,7 +50,7 @@ namespace Betting.Entity.Sqlite
             Player1Name = prices[0].SelectionName;
             Player2Name = prices[1].SelectionName;
             Player3Name = prices[2].SelectionName;
-            PredictionDate = odd.PredictionDate;
+            OddsDate = odd.OddsDate;
         }
 
 
@@ -131,7 +131,7 @@ namespace Betting.Entity.Sqlite
                 odd.Player1Name,
                 odd.Player2Name,
                 odd.Player3Name,
-                odd.PredictionDate)
+                odd.OddsDate)
             {
                 Competition = odd.Competition
             };

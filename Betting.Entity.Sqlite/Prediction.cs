@@ -8,21 +8,22 @@ namespace Betting.Entity.Sqlite
     [Dapper.Contrib.Extensions.Table("Prediction")]
     public class Prediction : DBEntity, IPrediction
     {
-        public Prediction(Guid guid, DateTime eventDate, Guid competitionId, Guid marketId, DateTime oddsDate) :
-            this(eventDate, competitionId, marketId, oddsDate, guid)
+        public Prediction(Guid guid, DateTime eventDate, Guid competitionId, Guid marketId, Guid strategyId, DateTime predictionDate) :
+            this(eventDate, competitionId, marketId, strategyId, predictionDate, guid)
         {
         }
 
-        public Prediction(DateTime eventDate, Guid competitionId, Guid marketId, DateTime oddsDate) :
-            this(eventDate, competitionId, marketId, oddsDate, GuidHelper.Merge(marketId, GuidHelper.ToGuid(oddsDate)))
+        public Prediction(DateTime eventDate, Guid competitionId, Guid marketId, Guid strategyId, DateTime predictionDate) :
+            this(eventDate, competitionId, marketId, strategyId, predictionDate, GuidHelper.Merge(marketId, GuidHelper.ToGuid(predictionDate)))
         {
         }
 
-        private Prediction(DateTime eventDate, Guid competitionId, Guid marketId, DateTime predictionDate, Guid guid) : base(guid)
+        private Prediction(DateTime eventDate, Guid competitionId, Guid marketId, Guid strategyId, DateTime predictionDate, Guid guid) : base(guid)
         {
             EventDate = eventDate;
             CompetitionId = competitionId;
             MarketId = marketId;
+            StrategyId = strategyId;
             PredictionDate = predictionDate;
             Guid = Guid.NewGuid();
         }
@@ -41,6 +42,8 @@ namespace Betting.Entity.Sqlite
 
         [Indexed]
         public Guid MarketId { get; set; }
+
+        public Guid StrategyId { get; }
 
         public DateTime PredictionDate { get; set; }
 

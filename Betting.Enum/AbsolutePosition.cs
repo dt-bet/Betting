@@ -3,7 +3,7 @@
     public enum AbsolutePosition
     {
         None,
-        Winner = 1, 
-        Loser, 
+        Win = 1, 
+        Lose, 
     }
 }

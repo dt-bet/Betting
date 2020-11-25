@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Betting.Abstract
@@ -14,9 +15,10 @@ namespace Betting.Abstract
 
         Guid CompetitionId { get; }
 
-        DateTime PredictionDate { get; }
+        DateTime OddsDate { get; }
 
         IReadOnlyCollection<IPrice> Prices { get;  }
 
+        Percent Margin => (Prices.Sum(a => 100d / a.Value) - 100) / 100;
     }
 }

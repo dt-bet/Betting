@@ -11,7 +11,7 @@ namespace Betting
 {
 
 
-    public class RecommendationService : IRecommendationTracker
+    public class RecommendationService : IRecommendationService
     {
         ICollection<Prediction> Predictions;
 

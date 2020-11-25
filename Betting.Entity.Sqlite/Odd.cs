@@ -2,6 +2,7 @@
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Betting.Entity.Sqlite
 {
@@ -23,7 +24,7 @@ namespace Betting.Entity.Sqlite
             EventDate = eventDate;
             CompetitionId = competitionId;
             MarketId = marketId;
-            PredictionDate = oddsDate;
+            OddsDate = oddsDate;
             Guid = Guid.NewGuid();
         }
 
@@ -42,9 +43,7 @@ namespace Betting.Entity.Sqlite
         [Indexed]
         public Guid MarketId { get; set; }
 
-        //public MarketType MarketType { get; set; }
-
-        public DateTime PredictionDate { get; set; }
+        public DateTime OddsDate { get; set; }
 
         [Ignore]
         public IReadOnlyCollection<IPrice> Prices { get; set; }

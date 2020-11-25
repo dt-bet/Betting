@@ -20,10 +20,8 @@ namespace Betting.Entity.Sqlite
         private Price(Guid selectionId, Guid marketId, Guid oddId, uint value, PriceSide priceSide, Guid guid) : base(guid)
         {
             SelectionId = selectionId;
-            //SelectionName = selectionName;
             MarketId = marketId;
             OddId = oddId;
-            //Name = name;
             Value = value;
             this.Side = priceSide;
         }
@@ -33,12 +31,9 @@ namespace Betting.Entity.Sqlite
         {
         }
 
-
-
         [Indexed]
         public Guid SelectionId { get; set; }
 
-        //public string Name { get; set; }
         public string SelectionName { get; set; }
 
         [Indexed]
@@ -54,9 +49,9 @@ namespace Betting.Entity.Sqlite
 
     public static class PriceHelper
     {
-        public static Price WithValue(this IEstimate estimation, uint value)
+        public static Price WithValue(this IPrice price, uint value)
         {
-            return new Price(estimation.SelectionId, estimation.MarketId, estimation.PredictionId, value, estimation.Side) { SelectionName = estimation.SelectionName };
+            return new Price(price.SelectionId, price.MarketId, price.OddId, value, price.Side) { SelectionName = price.SelectionName };
 
         }
     }

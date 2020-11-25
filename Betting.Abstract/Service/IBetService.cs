@@ -4,8 +4,16 @@ using System.Collections.Generic;
 
 namespace Betting.Abstract
 {
-    public interface IBetService
+    public interface IBetService: IBetService<IPrediction, IBet, IOdd>
     {
-        IEnumerable<Optional.Option<IBet, Exception>> MakeBets(IEnumerable<IOdd> odds);
+
+    }
+
+    public interface IBetService<TPrediction, TBet, TOdd>
+        where TPrediction : IPrediction
+        where TBet : IBet
+        where TOdd : IOdd
+    {
+        IEnumerable<Optional.Option<TBet, Exception>> MakeBets(IEnumerable<(TPrediction, TOdd)> predictions);
     }
 }

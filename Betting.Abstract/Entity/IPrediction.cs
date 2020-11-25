@@ -17,6 +17,6 @@ namespace Betting.Abstract
         DateTime PredictionDate { get; }
 
         IReadOnlyCollection<IEstimate> Estimates { get;  }
-
+        Guid StrategyId { get; }
     }
 }
