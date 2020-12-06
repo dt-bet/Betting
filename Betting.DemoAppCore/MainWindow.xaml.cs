@@ -1,4 +1,8 @@
-﻿using System.Windows;
+﻿using Betting.View;
+using Betting.ViewModel;
+using ReactiveUI;
+using Splat;
+using System.Windows;
 
 namespace Betting.DemoWpfApp
 {
@@ -10,6 +14,9 @@ namespace Betting.DemoWpfApp
         public MainWindow()
         {
             InitializeComponent();
+            Locator.CurrentMutable.Register<IViewFor<ProfitChartViewModel>>(()=> new ProfitChartView());
+
+            MainViewModelViewHost.ViewModel = new ProfitChartViewModel();
         }
     }
 }

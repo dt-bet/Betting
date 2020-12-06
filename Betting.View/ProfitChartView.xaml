@@ -1,12 +1,14 @@
-﻿<UserControl x:Class="Betting.View.ProfitChartView"
+﻿<rxui:ReactiveUserControl
+    x:TypeArguments="vm:ProfitChartViewModel"
+                x:Class="Betting.View.ProfitChartView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:Betting.ViewModel;assembly=Betting.ViewModel" 
              xmlns:exceed="http://schemas.xceed.com/wpf/xaml/toolkit"
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:oxy="http://oxyplot.org/wpf"
+    xmlns:rxui="http://reactiveui.net"
              d:DataContext="{d:DesignInstance Type=vm:ProfitChartViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -15,90 +17,65 @@
 
         <DockPanel>
             <ToolBar DockPanel.Dock="Top">
-                <Label >Balance</Label>
-                <exceed:IntegerUpDown x:Name="B" Value="5" Minimum="0" UpdateValueOnEnterKey="True" AllowSpin="True" >
-                    <i:Interaction.Triggers>
+                <Label >balance</Label>
+                <exceed:IntegerUpDown x:Name="BalanceIntegerUpDown" Value="1" Minimum="0" UpdateValueOnEnterKey="True" AllowSpin="True" >
+                    <!--<i:Interaction.Triggers>
                         <i:EventTrigger EventName="ValueChanged">
                             <i:InvokeCommandAction
                                         Command="{Binding Balance}" 
                                 EventArgsParameterPath="NewValue"                                      >
                             </i:InvokeCommandAction>
                         </i:EventTrigger>
-                    </i:Interaction.Triggers>
+                    </i:Interaction.Triggers>-->
                 </exceed:IntegerUpDown>
 
-                <Label >Fraction</Label>
-                <exceed:IntegerUpDown x:Name="F" Value="5" Minimum="0">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="ValueChanged">
-                            <i:InvokeCommandAction
-                                Command="{Binding Fraction}"
-                                EventArgsParameterPath="NewValue"                                      >
-                            </i:InvokeCommandAction>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
+                <Label >fraction</Label>
+                <exceed:IntegerUpDown x:Name="FractionIntegerUpDown" Value="5" Minimum="0">
+
                 </exceed:IntegerUpDown>
 
-                <Label >Win</Label>
-                <exceed:IntegerUpDown x:Name="W" Value="5" >
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="ValueChanged">
-                            <i:InvokeCommandAction
-                                Command="{Binding Win}"
-                                EventArgsParameterPath="NewValue"                                       >
-                            </i:InvokeCommandAction>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
+                <Label >win</Label>
+                <exceed:IntegerUpDown x:Name="WinIntegerUpDown" Value="5" >
                 </exceed:IntegerUpDown>
 
-                <Label >Sigma</Label>
-                <exceed:IntegerUpDown x:Name="S" Value="5" Minimum="0">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="ValueChanged">
-                            <i:InvokeCommandAction
-                                Command="{Binding Sigma}"
-                                EventArgsParameterPath="NewValue"                                      >
-                            </i:InvokeCommandAction>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
+                <Label >sigma</Label>
+                <exceed:IntegerUpDown x:Name="SigmaIntegerUpDown" Value="5" Minimum="0">
+                </exceed:IntegerUpDown>
+                
+                <Label >profitability (/1000)</Label>
+                <exceed:IntegerUpDown x:Name="ProfitabilityIntegerUpDown" Value="5" Minimum="0">
                 </exceed:IntegerUpDown>
 
-         
-                <CheckBox
-            Content="Remove Previous"
-            HorizontalAlignment="Left"
-            Margin="10,0,0,0"
-            VerticalAlignment="Top"
-           >
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Checked">
-                            <i:InvokeCommandAction
-                            Command="{Binding RemovePrevious}"
-                            EventArgsParameterPath="Source"
-                                      >
-                            </i:InvokeCommandAction>
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="Unchecked">
-                            <i:InvokeCommandAction
-                            Command="{Binding RemovePrevious}"
-                            EventArgsParameterPath="Source"
-                                      >
-                            </i:InvokeCommandAction>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
+
+                <CheckBox         
+                    x:Name="RemovePreviousCheckBox"
+                    Content="remove previous"         
+                    IsChecked="True"
+                                     HorizontalAlignment="Left"          
+                                     Margin="10,0,0,0"
+                                     VerticalAlignment="Top"           >
                 </CheckBox>
 
 
-                <exceed:IntegerUpDown x:Name="R" Value="5" Minimum="0" Margin="20,0">
+                <exceed:IntegerUpDown x:Name="runIntegerUpDown" Value="5" Minimum="0" Margin="20,0">
                 </exceed:IntegerUpDown>
-                <Button Command="{Binding Run}" CommandParameter="{Binding ElementName=R, Path=Value}">
+                <!--<Button Command="{Binding Run}" CommandParameter="{Binding ElementName=R, Path=Value}">-->
+                <Button x:Name="RunButton">
                     run
                 </Button>
+                <Button x:Name="RunManyButton">
+                    run many
+                </Button>
             </ToolBar>
-   
-            <oxy:PlotView x:Name="PlotView1"> </oxy:PlotView>
+
+            <UniformGrid Rows="1">
+           
+                <oxy:PlotView x:Name="PlotView1"></oxy:PlotView>
+                <oxy:PlotView x:Name="PlotView2"></oxy:PlotView>
+            </UniformGrid>
+
         </DockPanel>
 
     </Grid>
 
-</UserControl>
+</rxui:ReactiveUserControl>
